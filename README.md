@@ -23,48 +23,45 @@ Three LCD displays record the number of calls to the compare, read, and write fu
 ![preview2](https://user-images.githubusercontent.com/58042063/69555822-12a3cf80-0fa4-11ea-9cb6-78d90981062c.png)
 
 List of algorithms by category:
-* bubblesort
-         - upwards bubblesort
-         - downwards bubblesort
-         - cocktail shaker
-         - comb sort
-* quicksort
-         - first element as pivot, naive partition
-         - middle element as pivot, naive partition
-         - median of three, optimized
+* bubblesor
+    * upwards bubblesort, downwards bubblesort, cocktail shaker, comb sort]
+* quicksort 
+    * first element as pivot, naive partition
+    * middle element as pivot, naive partition
+    * median of three, optimized
 * mergesort
-         - mergesort
-         - bottom-up mergesort
-         - weavesort
+    * mergesort
+    * bottom-up mergesort
+    * weavesort
 * radix sort
-         - LSD base 2
-         - LSD base 4
-         - LSD base 8
-         - MSD base 2
-         - MSD base 4
-         - MSD base 8
-         - counting sort
+    * LSD base 2
+    * LSD base 4
+    * LSD base 8
+    * MSD base 2
+    * MSD base 4
+    * MSD base 8
+    * counting sort
 * bucket sort
-         - same-length buckets
-         - calibrated with random sampler
+    * same-length buckets
+    * calibrated with random sampler
 * insertion sort
-         - insertion sort
-         - shell sort
+    * insertion sort
+    * shell sort
 * heapsort
-         - max heapsort
-         - min heapsort
-         - ternary max heapsort
-         - smoothsort
+    * max heapsort
+    * min heapsort
+    * ternary max heapsort
+    * smoothsort
 * selection sort
-         - max select
-         - min select
-         - double select
-         - cycle sort
-         - cycle sort with memory of sorted values
-         - pancake sort
+    * max select
+    * min select
+    * double select
+    * cycle sort
+    * cycle sort with memory of sorted values
+    * pancake sort
 * networks
-         - bitonic sort
-         - odd-even mergesort
+    * bitonic sort
+    * odd-even mergesort
 
 The design of the project should make it easy to add more algorithms, please feel free to suggest any.
 I am already considering adding recursive bucket sort, slowsort, and possibly bogosort.
