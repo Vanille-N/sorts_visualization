@@ -13,7 +13,7 @@ Hovering over an algorithm name will display information on the worst-, average-
 Only powers of 2 are supported for the length of the array, in part due to the presence of two algorithms that would need modifications to run on arrays of a length that is not a power of 2.
 
 Delay can be set between all actions to help understand what is happening.
-Colors are also used to represent visually the actions of comparison, read and write. In some cases, the items that are sorted, or partially sorted are displayed as such in real time to help show which parts of the array are not being looked at.
+Colors are also used to represent visually the actions of comparison, read and write. In some cases the items that are sorted, or partially sorted, are displayed as such in real time to help show which parts of the array are not being looked at.
 ![preview3](https://user-images.githubusercontent.com/58042063/69556984-12a4cf00-0fa6-11ea-8e35-a135c2b1bdc1.png)
 
 For now, aborting the algorithm -- or even interrupting it -- is not supported, this may be a topic of future improvements.
