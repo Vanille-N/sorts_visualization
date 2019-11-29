@@ -1,0 +1,10 @@
+release/main.o
+release/optionmgr.o
+release/distributor.o
+release/linker.o
+release/window.o
+release/sorter.o
+release/xslider.o
+release/moc_optionmgr.o
+release/moc_window.o
+release/moc_xslider.o
