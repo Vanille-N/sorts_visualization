@@ -23,7 +23,7 @@ Three LCD displays record the number of calls to the compare, read, and write fu
 ![preview2](https://user-images.githubusercontent.com/58042063/69555822-12a3cf80-0fa4-11ea-9cb6-78d90981062c.png)
 
 List of algorithms by category:
-* bubblesor
+* bubblesort
     * upwards bubblesort, downwards bubblesort, cocktail shaker, comb sort]
 * quicksort 
     * first element as pivot, naive partition
