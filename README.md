@@ -16,7 +16,7 @@ Delay can be set between all actions to help understand what is happening.
 Colors are also used to represent visually the actions of comparison, read and write. In some cases the items that are sorted, or partially sorted, are displayed as such in real time to help show which parts of the array are not being looked at.
 ![preview3](https://user-images.githubusercontent.com/58042063/69556984-12a4cf00-0fa6-11ea-8e35-a135c2b1bdc1.png)
 
-For now, aborting the algorithm -- or even interrupting it -- is not supported, this may be a topic of future improvements.
+Aborting or interrupting the execution are finally supported !
 
 Three LCD displays record the number of calls to the compare, read, and write functions.
 
@@ -29,6 +29,7 @@ List of algorithms by category:
     * first element as pivot, naive partition
     * middle element as pivot, naive partition
     * median of three, optimized
+    * median of medians for optimal pivot
 * mergesort
     * mergesort
     * bottom-up mergesort
@@ -48,7 +49,7 @@ List of algorithms by category:
     * insertion sort
     * shell sort
 * heapsort
-    * max heapsort
+    * max heapsort (2 variants)
     * min heapsort
     * ternary max heapsort
     * smoothsort
@@ -62,9 +63,15 @@ List of algorithms by category:
 * networks
     * bitonic sort
     * odd-even mergesort
+    both with DFS or BFS sequentialization.
+* suboptimal sorts
+    * slowsort
+    * stoogesort
+    * (less) bogosort
+    * random comparisons
 
 The design of the project should make it easy to add more algorithms, please feel free to suggest any.
-I am already considering adding recursive bucket sort, slowsort, and possibly bogosort.
+I am already considering adding recursive bucket sort.
 
 My attempts at adding sound have been unsuccessful as the only sounds I could generate were followed by a click at the end.
 
