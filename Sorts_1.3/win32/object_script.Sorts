@@ -1,0 +1,10 @@
+main.o
+optionmgr.o
+distributor.o
+linker.o
+window.o
+sorter.o
+xslider.o
+moc_optionmgr.o
+moc_window.o
+moc_xslider.o
