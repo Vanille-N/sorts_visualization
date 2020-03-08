@@ -48,6 +48,8 @@ List of algorithms by category:
 * insertion sort
     * insertion sort
     * shell sort
+    * binary insertion
+    * gnome sort
 * heapsort
     * max heapsort (2 variants)
     * min heapsort
