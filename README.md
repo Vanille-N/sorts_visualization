@@ -9,7 +9,7 @@ Includes many options for:
 ![preview1](https://user-images.githubusercontent.com/58042063/69556308-cd33d200-0fa4-11ea-8d50-a9691932e909.png)
 
 Hovering over an algorithm name will display information on the worst-, average-, and best-case performance as well as an indication of the additional memory usage.
- 
+
 Only powers of 2 are supported for the length of the array, in part due to the presence of two algorithms that would need modifications to run on arrays of a length that is not a power of 2.
 
 Delay can be set between all actions to help understand what is happening.
@@ -25,7 +25,7 @@ Three LCD displays record the number of calls to the compare, read, and write fu
 List of algorithms by category:
 * bubblesort
     * upwards bubblesort, downwards bubblesort, cocktail shaker, comb sort]
-* quicksort 
+* quicksort
     * first element as pivot, naive partition
     * middle element as pivot, naive partition
     * median of three, optimized
@@ -66,6 +66,7 @@ List of algorithms by category:
     * bitonic sort
     * odd-even mergesort
     both with DFS or BFS sequentialization.
+    * shear sort
 * suboptimal sorts
     * slowsort
     * stoogesort
