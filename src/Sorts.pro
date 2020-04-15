@@ -8,7 +8,8 @@ SOURCES += \
     xslider.cpp
 
 QT += \
-    widgets
+    widgets \
+    multimedia
 
 HEADERS += \
     item.h \

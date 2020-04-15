@@ -5,10 +5,7 @@
 #include <math.h>
 
 #define BREAKPOINT \
-    if (!ok) return ;
-
-#define KILLPOINT \
-    if (!ok) return 0 ;
+    if (!ok) return
 
 class Sorter {
 public:
@@ -60,6 +57,7 @@ public:
     void Bogosort () ;
     void LessBogosort () ;
     void Randsort () ;
+    void ShearSort () ;
 private:
     void Quicksort (int, int, int) ;
     int Naive_partition (int, int) ;
@@ -71,6 +69,8 @@ private:
     int Qselect (int, int, int) ;
     void Mergesort (int, int, item * []) ;
     void merge (int, int, int, item * []) ;
+    void rotate (int, int, int) ;
+    void reverse (int, int) ;
     void RadixLSD (int) ;
     void RadixMSDLauncher (int) ;
     void RadixMSD (int, int, int, int, int, int, int) ;
@@ -93,6 +93,8 @@ private:
     void Slowmerge (int, int) ;
     void Stooge (int, int) ;
     void Scramble (int, int) ;
+    bool shear_line (int, int, int) ;
+    bool shear_col (int, int, int) ;
 
     Linker * m_link ;
     int m_size ;

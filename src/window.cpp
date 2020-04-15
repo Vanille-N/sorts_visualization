@@ -223,6 +223,7 @@ void Window::run () {
                 case 1: m_sort->OddEven() ; break ;
                 case 2: m_sort->BitonicPara() ; break ;
                 case 3: m_sort->OddEvenPara() ; break ;
+                case 4: m_sort->ShearSort() ; break ;
             } break ;
         case 9: // Stupid
             switch (m_chooseOption->currentIndex()) {

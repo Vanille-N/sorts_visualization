@@ -102,6 +102,8 @@ void OptionMgr::updateOptions (int algorithm) {
             m_menu->setItemData(2, "Θ(log²n) parallel || Θ(n log²n) sequential", Qt::ToolTipRole) ;
             m_menu->addItem("Simultaneous Odd-Even Mergesort") ;
             m_menu->setItemData(3, "Θ(log²n) parallel || Θ(n log²n) sequential", Qt::ToolTipRole) ;
+            m_menu->addItem("Shear Sort") ;
+            m_menu->setItemData(4, "", Qt::ToolTipRole) ;
             break ;
         case 9:
             m_menu->addItem("Slowsort") ;

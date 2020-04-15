@@ -7,7 +7,6 @@ Sorter::Sorter(Linker * link) {
 }
 
 void Sorter::stop () {
-    //printf("STAHP.\n") ;
     ok = false ;
 }
 
@@ -19,7 +18,7 @@ void Sorter::Bubble_upwards () {
     for (int i = 0; i < m_size; i++) {
         bool sorted = true ;
         for (int j = m_size-1; j > i; j--) {
-            BREAKPOINT
+            BREAKPOINT ;
             if (m_link->cmp_ii(j, j-1)) {
                 sorted = false ;
                 m_link->flip(j, j-1) ;
@@ -28,7 +27,7 @@ void Sorter::Bubble_upwards () {
         m_link->solved(i) ;
         if (sorted) {
             for (int j = i+1; j < m_size; j++) {
-                BREAKPOINT
+                BREAKPOINT ;
                 m_link->solved(j) ;
             }
             break ;
@@ -40,7 +39,7 @@ void Sorter::Bubble_downwards() {
     for (int i = m_size; i > 0; i--) {
         bool sorted = true ;
         for (int j = 1; j < i; j++) {
-            BREAKPOINT
+            BREAKPOINT ;
             if (m_link->cmp_ii(j, j-1)) {
                 sorted = false ;
                 m_link->flip(j, j-1) ;
@@ -49,7 +48,7 @@ void Sorter::Bubble_downwards() {
         m_link->solved(i-1) ;
         if (sorted) {
             for (int j = 0; j < i; j++) {
-                BREAKPOINT
+                BREAKPOINT ;
                 m_link->solved(j) ;
             }
             break ;
@@ -64,7 +63,7 @@ void Sorter::Bubble_shaker () {
         if (upwards) {
             int k = lt + 1 ;
             for (int i = lt+1; i < rt; i++) {
-                BREAKPOINT
+                BREAKPOINT ;
                 if (m_link->cmp_ii(i, i-1)) {
                     m_link->flip(i, i-1) ;
                     k = i ;
@@ -75,14 +74,14 @@ void Sorter::Bubble_shaker () {
         } else {
             int k = rt - 1 ;
             for (int i = rt-1; i > lt; i--) {
-                BREAKPOINT
+                BREAKPOINT ;
                 if (m_link->cmp_ii(i, i-1)) {
                     m_link->flip(i, i-1) ;
                     k = i ;
                 }
             }
             do {
-                BREAKPOINT
+                BREAKPOINT ;
                 m_link->solved(lt++) ;
             } while (lt < k) ;
             upwards = true ;
@@ -96,7 +95,7 @@ void Sorter::Comb () {
         int s = int(std::ceil(step)) ;
         bool sorted = (s == 1) ;
         for (int j = s; j < m_size; j++) {
-            BREAKPOINT
+            BREAKPOINT ;
             if (m_link->cmp_ii(j, j-s)) {
                 sorted = false ;
                 m_link->flip(j, j-s) ;
@@ -104,7 +103,7 @@ void Sorter::Comb () {
         }
         if (sorted) {
             for (int j = 0; j < m_size; j++) {
-                BREAKPOINT
+                BREAKPOINT ;
                 m_link->solved(j) ;
             }
             break ;
@@ -153,12 +152,12 @@ void Sorter::Quicksort (int a, int b, int part) {
         case 2: pv = Fast_partition(a, b) ; break ;
         case 3: pv = Median_partition(a, b) ; break ;
     }
-    BREAKPOINT
+    BREAKPOINT ;
     m_link->solved(pv) ;
     Quicksort(a, pv, part) ;
-    BREAKPOINT
+    BREAKPOINT ;
     Quicksort(pv+1, b, part) ;
-    BREAKPOINT
+    BREAKPOINT ;
 }
 
 int Sorter::Naive_partition (int a, int b) {
@@ -166,7 +165,7 @@ int Sorter::Naive_partition (int a, int b) {
     int pvIdx = a ;
     int k = a + 1 ;
     while (k < b) {
-        KILLPOINT
+        BREAKPOINT 0 ;
         if (m_link->cmp_ie(k, pvVal)) {
             m_link->flip(pvIdx++, k) ;
             if (pvIdx != k) m_link->flip(pvIdx, k) ;
@@ -184,7 +183,7 @@ int Sorter::Middle_partition (int a, int b) {
     item * pvVal = m_link->send(a) ;
     int k = a + 1 ;
     while (k < b) {
-        KILLPOINT
+        BREAKPOINT 0 ;
         if (m_link->cmp_ie(k, pvVal)) {
             m_link->flip(pvIdx++, k) ;
             if (pvIdx != k) m_link->flip(pvIdx, k) ;
@@ -226,11 +225,11 @@ int Sorter::Fast_partition (int a, int b) {
     int i = a, j = b ;
     for (;;) {
         do {
-            KILLPOINT
+            BREAKPOINT 0 ;
             j-- ;
         } while ((i < j) && !m_link->cmp_ie(j, pvVal)) ;
         do {
-            KILLPOINT
+            BREAKPOINT 0 ;
             i++ ;
         } while ((i < j) && m_link->cmp_ie(i, pvVal)) ;
         if (i < j) {
@@ -270,7 +269,7 @@ int Sorter::Qselect (int a, int b , int k) {
         return a+k ;
     }
     int pv = Median_partition(a+1, b-1) ;
-    KILLPOINT
+    BREAKPOINT 0 ;
     if (a + k < pv) {
         return Qselect(a, pv, k) ;
     } else {
@@ -285,7 +284,7 @@ int Sorter::Median_of_medians (int a, int b) {
     }
     int j = a ;
     for (int i = a ; i < b-5 ; i += 5) {
-        KILLPOINT
+        BREAKPOINT 0 ;
         m_link->flip(j++, Median_of_5(i)) ;
     }
     m_link->flip(b-1, j++) ;
@@ -305,18 +304,18 @@ int Sorter::Median_partition (int a, int b) {
         return Middle_partition(a, b) ;
     }
     int pv = Median_of_medians(a, b) ;
-    KILLPOINT
+    BREAKPOINT 0 ;
     m_link->flip(pv, a) ;
     pv = a ;
     item * pvVal = m_link->send(pv) ;
     int i = a, j = b ;
     for (;;) {
         do {
-            KILLPOINT
+            BREAKPOINT 0 ;
             j-- ;
         } while ((i < j) && !m_link->cmp_ie(j, pvVal)) ;
         do {
-            KILLPOINT
+            BREAKPOINT 0 ;
             i++ ;
         } while ((i < j) && m_link->cmp_ie(i, pvVal)) ;
         if (i < j) {
@@ -336,7 +335,7 @@ void Sorter::Mergesort_standard () {
     item * tab [m_size] ;
     Mergesort(0, m_size, tab) ;
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -345,12 +344,12 @@ void Sorter::Mergesort_pack () {
     item * tab [m_size] ;
     for (int d = 1; d < m_size; d <<= 1) {
         for (int i = 0; i+d < m_size; i += 2*d) {
-            BREAKPOINT
+            BREAKPOINT ;
             merge(i, i+d, i+2*d, tab) ;
         }
     }
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -359,7 +358,7 @@ void Sorter::Mergesort_weave () {
     item * tab [m_size] ;
     Weavesort(0, m_size, tab) ;
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -368,11 +367,11 @@ void Sorter::Weavesort (int a, int b, item * tab []) {
     if (b - a < 2) return ;
     int m = (a + b) / 2 ;
     Weavesort(a, m, tab) ;
-    BREAKPOINT
+    BREAKPOINT ;
     Weavesort(m, b, tab) ;
-    BREAKPOINT
+    BREAKPOINT ;
     weave(a, m, b, tab) ;
-    BREAKPOINT
+    BREAKPOINT ;
     LocalInsertSort(a, b) ;
 }
 
@@ -380,16 +379,16 @@ void Sorter::Mergesort (int a, int b, item * tab []) {
     if (b - a < 2) return ;
     int m = (a + b) / 2 ;
     Mergesort(a, m, tab) ;
-    BREAKPOINT
+    BREAKPOINT ;
     Mergesort(m, b, tab) ;
-    BREAKPOINT
+    BREAKPOINT ;
     merge(a, m, b, tab) ;
 }
 
 void Sorter::merge (int a, int b, int c, item * tab []) {
     int i = a, j = b, k = 0 ;
     while ((i < b) && (j < c) && (j < m_size)) {
-        BREAKPOINT
+        BREAKPOINT ;
         if (m_link->cmp_ii(i, j)) {
             tab[a + k++] = m_link->send(i++) ;
         } else {
@@ -397,16 +396,16 @@ void Sorter::merge (int a, int b, int c, item * tab []) {
         }
     }
     while ((i < b) && (i < m_size)) {
-        BREAKPOINT
+        BREAKPOINT ;
         tab[a + k++] = m_link->send(i++) ;
     }
     for (int h = a; h < j; h++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->receive(h, tab[h]) ;
         m_link->tmpsolve(h) ;
     }
     for (int h = j; (h < c) && (h < m_size); h++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->tmpsolve(h) ;
     }
 }
@@ -414,16 +413,16 @@ void Sorter::merge (int a, int b, int c, item * tab []) {
 void Sorter::weave (int a, int b, int c, item * tab []) {
     int i = a, j = b, k = 0 ;
     while ((i < b) && (j < c) && (j < m_size)) {
-        BREAKPOINT
+        BREAKPOINT ;
         tab[a + k++] = m_link->send(i++) ;
         tab[a + k++] = m_link->send(j++) ;
     }
     while ((i < b) && (i < m_size)) {
-        BREAKPOINT
+        BREAKPOINT ;
         tab[a + k++] = m_link->send(i++) ;
     }
     for (int h = a; h < j; h++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->receive(h, tab[h]) ;
         m_link->tmpsolve(h) ;
     }
@@ -450,7 +449,7 @@ void Sorter::RadixLSD (int baselg) {
     int M = (1 << baselg) ;
     int maxidx = 0 ;
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         if (m_link->cmp_ii(maxidx, i)) {
             maxidx = i ;
         }
@@ -460,30 +459,30 @@ void Sorter::RadixLSD (int baselg) {
     item * cpy [m_size] ;
     for (int filter = M-1, d = 0; (filter <= maxval->val) || (filter & maxval->val); filter <<= baselg, d += baselg) {
         for (int m = 0; m < M; m++) {
-            BREAKPOINT
+            BREAKPOINT ;
             access[m] = 0 ;
         }
         for (int n = 0; n < m_size; n++) {
-            BREAKPOINT
+            BREAKPOINT ;
             cpy[n] = m_link->send(n) ;
         }
         for (int n = 0; n < m_size; n++) {
-            BREAKPOINT
+            BREAKPOINT ;
             access[(cpy[n]->val&filter)>>d]++ ;
         }
         for (int m = 1; m < M; m++) {
-            BREAKPOINT
+            BREAKPOINT ;
             access[m] += access[m-1] ;
         }
         for (int n = m_size-1; n >= 0; n--) {
-            BREAKPOINT
+            BREAKPOINT ;
             int k = --access[(cpy[n]->val&filter)>>d] ;
             m_link->receive(k, cpy[n]) ;
             m_link->tmpsolve(k) ;
         }
     }
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -504,7 +503,7 @@ void Sorter::RadixMSDLauncher (int baselg) {
     int M = (1 << baselg) ;
     int maxidx = 0 ;
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         if (m_link->cmp_ii(maxidx, i)) {
             maxidx = i ;
         }
@@ -514,13 +513,13 @@ void Sorter::RadixMSDLauncher (int baselg) {
     int shift = 0 ;
     int level ;
     for (level = 0; (filter <= maxval->val) || (filter & maxval->val) ; level++) {
-        BREAKPOINT
+        BREAKPOINT ;
         filter <<= baselg ;
         shift += baselg ;
     }
     RadixMSD(0, m_size, baselg, M, filter, shift, level) ;
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -532,26 +531,26 @@ void Sorter::RadixMSD (int start, int end, int baselg, int M, int filter, int sh
         access[m] = 0 ;
     }
     for (int n = start; n < end; n++) {
-        BREAKPOINT
+        BREAKPOINT ;
         cpy[n-start] = m_link->send(n) ;
     }
     for (int n = start; n < end; n++) {
-        BREAKPOINT
+        BREAKPOINT ;
         access[(cpy[n-start]->val&filter)>>shift]++ ;
     }
     for (int m = 1; m < M; m++) {
-        BREAKPOINT
+        BREAKPOINT ;
         access[m] += access[m-1] ;
     }
     for (int n = end-1; n >= start; n--) {
-        BREAKPOINT
+        BREAKPOINT ;
         int k = --access[((cpy[n-start]->val)&filter)>>shift] + start ;
         m_link->receive(k, cpy[n-start]) ;
         m_link->tmpsolve(k) ;
     }
     if (level) {
         for (int m = 0; m < M; m++) {
-            BREAKPOINT
+            BREAKPOINT ;
             RadixMSD(start + access[m], (m==M-1)?end:start+access[m+1], baselg, M, filter>>baselg, shift-baselg, level-1) ;
         }
     }
@@ -560,21 +559,21 @@ void Sorter::RadixMSD (int start, int end, int baselg, int M, int filter, int sh
 void Sorter::Counting () {
     int access [m_size] ;
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         access[i] = 0 ;
     }
     item * cpy [m_size] ;
     for (int n = 0; n < m_size; n++) {
-        BREAKPOINT
+        BREAKPOINT ;
         cpy[n] = m_link->send(n) ;
         access[cpy[n]->val]++ ;
     }
     for (int m = 1; m < m_size; m++) {
-        BREAKPOINT
+        BREAKPOINT ;
         access[m] += access[m-1] ;
     }
     for (int n = m_size-1; n >= 0; n--) {
-        BREAKPOINT
+        BREAKPOINT ;
         int k = --access[cpy[n]->val] ;
         m_link->receive(k, cpy[n]) ;
         m_link->solved(k) ;
@@ -589,7 +588,7 @@ void Sorter::LocalInsertSort (int beg, int end) {
     for (int i = beg; i < end; i++) {
         int j = i ;
         while ((j > beg) && (m_link->cmp_ii(j, j-1))) {
-            BREAKPOINT
+            BREAKPOINT ;
             m_link->flip(j, j-1) ;
             m_link->tmpsolve(j) ;
             j-- ;
@@ -603,7 +602,7 @@ int Sorter::Dichotomy (item * val, int beg, int end) {
     if (end == beg+1) {
         return beg ;
     } else {
-        KILLPOINT
+        BREAKPOINT 0 ;
         int mid = (beg + end) / 2 ;
         if (m_link->cmp_ei(val, mid)) {
             m_link->tmpsolve(mid) ;
@@ -615,53 +614,80 @@ int Sorter::Dichotomy (item * val, int beg, int end) {
     }
 }
 
+void Sorter::reverse (int lo, int hi) {
+    int len = (hi - lo) / 2 ;
+    for (int i = 0; i < len; i++) {
+        BREAKPOINT ;
+        m_link->flip(lo+i, hi-1-i) ;
+    }
+}
+
+void Sorter::rotate (int lo, int hi, int qty) {
+    BREAKPOINT ;
+    reverse(lo, hi) ;
+    reverse(hi-qty, hi) ;
+    reverse(lo, hi-qty) ;
+}
+
 void Sorter::Sampler () {
     int sampleSize = std::ceil(std::sqrt(m_size)) ;
     if (m_size < 16) {
         LocalInsertSort(0, m_size) ;
+        for (int i = 0; i < m_size; i++) m_link->solved(i) ;
         return ;
     }
     for (int i = 0; i < sampleSize; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->flip(i, std::min(i*sampleSize, m_size-1)) ;
     }
     LocalInsertSort(0, sampleSize) ;
     int access [sampleSize+1] ;
     for (int i = 0; i <= sampleSize; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         access[i] = 0 ;
     }
     // Count members of each interval
     for (int i = sampleSize; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         access[Dichotomy(m_link->send(i), 0, sampleSize+1)]++ ;
     }
     // Turn into cumulative
     for (int j = 1; j <= sampleSize; j++) {
-        BREAKPOINT
+        BREAKPOINT ;
         access[j] += access[j-1] ;
     }
     // Copy in order then rewrite
     item * cpy [m_size - sampleSize] ;
     for (int i = m_size-1; i >= sampleSize; i--) {
-        BREAKPOINT
+        BREAKPOINT ;
         cpy[--access[Dichotomy(m_link->send(i), 0, sampleSize+1)]] = m_link->send(i) ;
     }
     for (int i = sampleSize; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->receive(i, cpy[i - sampleSize]) ;
     }
     // Sub-sort
     for (int i = 0; i < sampleSize; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         LocalInsertSort(sampleSize+access[i], sampleSize+access[i+1]) ;
     }
     LocalInsertSort(sampleSize+access[sampleSize], m_size) ;
-    BREAKPOINT
-    merge(0, sampleSize, m_size, cpy) ;
-    BREAKPOINT
+    BREAKPOINT ;
+    int lo = 0 ;
+    int qty = sampleSize ;
+    int hi = sampleSize ;
+    for (;;) {
+        while (hi < m_size && qty > 0 && m_link->cmp_ii(hi, lo)) {
+            BREAKPOINT ;
+            hi++ ;
+        }
+        rotate(lo, hi, qty) ;
+        lo = hi - (--qty) ;
+        if (hi == m_size || qty == 0) break ;
+    }
+    BREAKPOINT ;
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -674,36 +700,36 @@ void Sorter::Bucket () {
     }
     int access [bucketcount+1] ;
     for (int i = 0; i <= bucketcount; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         access[i] = 0 ;
     }
     // Count members of each interval
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         access[m_link->get(i).val / bucketcount]++ ;
     }
     // Turn into cumulative
     for (int j = 1; j <= bucketcount; j++) {
-        BREAKPOINT
+        BREAKPOINT ;
         access[j] += access[j-1] ;
     }
     // Copy in order then rewrite
     item * cpy [m_size] ;
     for (int i = m_size-1; i >= 0; i--) {
-        BREAKPOINT
+        BREAKPOINT ;
         cpy[--access[m_link->get(i).val / bucketcount]] = m_link->send(i) ;
     }
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->receive(i, cpy[i]) ;
     }
     // Sub-sort
     for (int i = 0; i < bucketcount; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         LocalInsertSort(access[i], access[i+1]) ;
     }
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -717,7 +743,7 @@ void Sorter::Insertion () {
         int j = i ;
         item * val = m_link->send(j) ;
         while ((j > 0) && (m_link->cmp_ei(val, j-1))) {
-            BREAKPOINT
+            BREAKPOINT ;
             m_link->flip(j, j-1) ;
             m_link->tmpsolve(j) ;
             j-- ;
@@ -726,7 +752,7 @@ void Sorter::Insertion () {
         if (j > 0) m_link->tmpsolve(j-1) ;
     }
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -738,13 +764,13 @@ void Sorter::Shell () {
         for (int i = gap; i < m_size; i++) {
             item * val = m_link->send(i) ;
             for (int j = i; j >= gap && m_link->cmp_ei(val, j-gap); j -= gap) {
-                BREAKPOINT
+                BREAKPOINT ;
                 m_link->flip(j, j-gap) ;
             }
         }
     }
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -752,7 +778,7 @@ void Sorter::Shell () {
 void Sorter::Gnomesort () {
     int i = 0 ;
     while (i < m_size-1) {
-        BREAKPOINT
+        BREAKPOINT ;
         if (i >= 0) {
             if (!m_link->cmp_ii(i, i+1)) {
                 m_link->flip(i, i+1) ;
@@ -773,7 +799,7 @@ void Sorter::Gnomesort () {
 
 int Sorter::Dichotomy (item x, int lt, int rt) {
     // tab[lt] <= x < tab[rt]
-    KILLPOINT
+    BREAKPOINT 0 ;
     if (rt - lt <= 0) {
         return lt ;
     } else if (rt - lt == 1) {
@@ -793,12 +819,12 @@ int Sorter::Dichotomy (item x, int lt, int rt) {
 void Sorter::BinInsertion () {
     m_link->flip_ifn_cmp(0, 1) ;
     for (int i = 2; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         item x = m_link->get(i) ;
         int pos = Dichotomy(x, 0, i) ;
         if (pos < i) {
             for (int j = i; j > pos; j--) {
-                BREAKPOINT
+                BREAKPOINT ;
                 m_link->set(j, m_link->get(j-1)) ;
                 m_link->tmpsolve(j) ;
             }
@@ -836,7 +862,7 @@ void Sorter::Reheapify_max (int i, int end) {
         m_link->flip(i, maxson) ;
         m_link->setBinHeapLv(i) ;
         m_link->setBinHeapLv(maxson) ;
-        BREAKPOINT
+        BREAKPOINT ;
         Reheapify_max(maxson, end) ;
     } else {
         m_link->setBinHeapLv(i) ;
@@ -848,7 +874,7 @@ void Sorter::Reheapify_sift (int i) {
     if (i == 0) return ;
     int father = (i-1)/2 ;
     if (m_link->cmp_ii(father, i)) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->flip(i, father) ;
         m_link->setBinHeapLv(i) ;
         m_link->setBinHeapLv(father) ;
@@ -874,7 +900,7 @@ void Sorter::Reheapify_min (int i, int end) {
         m_link->flip(i, maxson) ;
         m_link->setBinHeapLv(i) ;
         m_link->setBinHeapLv(maxson) ;
-        BREAKPOINT
+        BREAKPOINT ;
         Reheapify_min(maxson, end) ;
     } else {
         m_link->setBinHeapLv(i) ;
@@ -901,7 +927,7 @@ void Sorter::Reheapify_tern (int i, int end) {
         m_link->flip(i, maxson) ;
         m_link->setTerHeapLv(i) ;
         m_link->setTerHeapLv(maxson) ;
-        BREAKPOINT
+        BREAKPOINT ;
         Reheapify_tern(maxson, end) ;
     }else {
         m_link->setTerHeapLv(i) ;
@@ -911,46 +937,46 @@ void Sorter::Reheapify_tern (int i, int end) {
 
 void Sorter::Heapsort_max () {
     for (int i = m_size / 2 + 1; i >= 0; i--) {
-        BREAKPOINT
+        BREAKPOINT ;
         Reheapify_max(i, m_size) ;
     }
     for (int i = m_size-1; i >= 0; i--) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->flip(i, 0) ;
         Reheapify_max(0, i) ;
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
 
 void Sorter::Heapsort_sift () {
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         Reheapify_sift(i) ;
     }
     for (int i = m_size-1; i >= 0; i--) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->flip(i, 0) ;
         Reheapify_max(0, i) ;
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
 
 void Sorter::Heapsort_min () {
     for (int i = m_size / 2 + 1; i >= 0; i--) {
-        BREAKPOINT
+        BREAKPOINT ;
         Reheapify_min(i, m_size) ;
     }
     for (int i = m_size-1; i >= 0; i--) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->flip(i, 0) ;
         Reheapify_min(0, i) ;
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->tmpsolve(i) ;
     }
     for (int i = 0; i <= m_size/2; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->flip(i, m_size-1-i) ;
         m_link->solved(i) ;
         m_link->solved(m_size-1-i) ;
@@ -960,14 +986,14 @@ void Sorter::Heapsort_min () {
 
 void Sorter::Heapsort_tern () {
     for (int i = m_size / 3 + 2; i >= 0; i--) {
-        BREAKPOINT
+        BREAKPOINT ;
         Reheapify_tern(i, m_size) ;
     }
     for (int i = m_size-1; i >= 0; i--) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->flip(i, 0) ;
         Reheapify_tern(0, i) ;
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -984,7 +1010,7 @@ void Sorter::Sift () {
     r0 = r1 ;
     t = m_link->send(r0) ;
     while (b1 >= 3) {
-        BREAKPOINT
+        BREAKPOINT ;
         r2 = r1 - b1 + c1 ;
         if (!m_link->cmp_ii(r1 - 1, r2)) {
             r2 = r1 - 1 ;
@@ -1010,9 +1036,9 @@ void Sorter::Trinkle () {
     r0 = r1 ;
     t = m_link->send(r0) ;
     while (p1 > 0) {
-        BREAKPOINT
+        BREAKPOINT ;
         while ((p1 & 1) == 0) {
-            BREAKPOINT
+            BREAKPOINT ;
             p1 >>= 1 ;
             UP(b1, c1) ;
         }
@@ -1046,7 +1072,7 @@ void Sorter::Trinkle () {
         }
     }
     if (r0 - r1) m_link->receive(r1, t) ;
-    BREAKPOINT
+    BREAKPOINT ;
     Sift() ;
 }
 
@@ -1054,7 +1080,7 @@ void Sorter::SemiTrinkle () {
     r1 = r - c ;
     if (!m_link->cmp_ii(r1, r)) {
         m_link->flip(r, r1) ;
-        BREAKPOINT
+        BREAKPOINT ;
         Trinkle() ;
     }
 }
@@ -1067,7 +1093,7 @@ void Sorter::SmoothSort () {
     b = 1 ;
     c = 1 ;
     while (q < m_size) {
-        BREAKPOINT
+        BREAKPOINT ;
         r1 = r ;
         if ((p & 7) == 3) {
             b1 = b ;
@@ -1087,7 +1113,7 @@ void Sorter::SmoothSort () {
             DOWN(b, c) ;
             p <<= 1 ;
             while (b > 1) {
-                BREAKPOINT
+                BREAKPOINT ;
                 DOWN(b, c) ;
                 p <<= 1 ;
             }
@@ -1099,13 +1125,13 @@ void Sorter::SmoothSort () {
     r1 = r ;
     Trinkle() ;
     while (q > 1) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(--q) ;
         if (b == 1) {
             r-- ;
             p-- ;
             while ((p & 1) == 0) {
-                BREAKPOINT
+                BREAKPOINT ;
                 p >>= 1 ;
                 UP(b, c) ;
             }
@@ -1117,7 +1143,7 @@ void Sorter::SmoothSort () {
                 DOWN(b, c) ;
                 p = (p << 1) + 1 ;
                 r = r + c ;
-                BREAKPOINT
+                BREAKPOINT ;
                 SemiTrinkle() ;
                 DOWN(b, c) ;
                 p = (p << 1) + 1 ;
@@ -1136,7 +1162,7 @@ void Sorter::Selection_max () {
         int M = 0 ;
         item * MVal = m_link->send(M) ;
         for (int j = 1; j < i; j++) {
-            BREAKPOINT
+            BREAKPOINT ;
             if (m_link->cmp_ei(MVal, j)) {
                 M = j ;
                 MVal = m_link->send(j) ;
@@ -1153,7 +1179,7 @@ void Sorter::Selection_min () {
         int m = i ;
         item * mVal = m_link->send(m) ;
         for (int j = i; j < m_size; j++) {
-            BREAKPOINT
+            BREAKPOINT ;
             if (m_link->cmp_ie(j, mVal)) {
                 m = j ;
                 mVal = m_link->send(j) ;
@@ -1168,7 +1194,7 @@ void Sorter::Selection_min () {
 void Sorter::Selection_dbl () {
     int mid = m_size / 2 ;
     for (int i = 0; i < mid; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         int m = i, M = i+1 ;
         item * mVal = m_link->send(m) ;
         item * MVal = m_link->send(M) ;
@@ -1176,7 +1202,7 @@ void Sorter::Selection_dbl () {
             m++ ; M-- ;
         }
         for (int j = i; j <= m_size-1-i; j++) {
-            BREAKPOINT
+            BREAKPOINT ;
             if (m_link->cmp_ie(j, mVal)) {
                 m = j ;
                 mVal = m_link->send(j) ;
@@ -1185,7 +1211,7 @@ void Sorter::Selection_dbl () {
                 MVal = m_link->send(j) ;
             }
         }
-        BREAKPOINT
+        BREAKPOINT ;
         if ((M == i) && (m == m_size-1-i)) {
             m_link->flip(m, M) ;
         } else if (M == i) {
@@ -1203,12 +1229,12 @@ void Sorter::Selection_dbl () {
 
 void Sorter::Cycle () {
     for (int start = 0; start < m_size-1; start++) {
-        BREAKPOINT
+        BREAKPOINT ;
         if (start > 0) m_link->solved(start-1) ;
         item * k = m_link->send(start) ;
         int pos = start ;
         for (int i = start+1; i < m_size; i++) {
-            BREAKPOINT
+            BREAKPOINT ;
             if (m_link->cmp_ie(i, k)) pos++ ;
         }
         if (pos == start) continue ;
@@ -1218,10 +1244,10 @@ void Sorter::Cycle () {
         m_link->solved(pos) ;
         k = tmp ;
         while (pos != start) {
-            BREAKPOINT
+            BREAKPOINT ;
             pos = start ;
             for (int i = start+1; i < m_size; i++) {
-                BREAKPOINT
+                BREAKPOINT ;
                 if (m_link->cmp_ie(i, k)) pos++ ;
             }
             while (*k == m_link->get(pos)) pos++ ;
@@ -1239,13 +1265,13 @@ void Sorter::CycleOpt () {
     bool placed [m_size] ;
     for (int i = 0; i < m_size; i++) placed[i] = false ;
     for (int start = 0; start < m_size-1; start++) {
-        BREAKPOINT
+        BREAKPOINT ;
         if (start > 0) m_link->solved(start-1) ;
         if (placed[start]) continue ;
         item * k = m_link->send(start) ;
         int pos = start ;
         for (int i = start+1; i < m_size; i++) {
-            BREAKPOINT
+            BREAKPOINT ;
             if (m_link->cmp_ie(i, k)) pos++ ;
         }
         if (pos == start) continue ;
@@ -1256,10 +1282,10 @@ void Sorter::CycleOpt () {
         placed[pos] = true ;
         k = tmp ;
         while (pos != start) {
-            BREAKPOINT
+            BREAKPOINT ;
             pos = start ;
             for (int i = start+1; i < m_size; i++) {
-                BREAKPOINT
+                BREAKPOINT ;
                 if (m_link->cmp_ie(i, k)) pos++ ;
             }
             while (*k == m_link->get(pos)) pos++ ;
@@ -1278,17 +1304,17 @@ void Sorter::Pancake () {
     for (int i0 = 0; i0 < m_size; i0++) {
         int best = i0 ;
         for (int i = i0; i < m_size; i++) {
-            BREAKPOINT
+            BREAKPOINT ;
             if (m_link->cmp_ii(i, best)) {
                 best = i ;
             }
         }
         for (int i = 0; i < (m_size-best)/2; i++) {
-            BREAKPOINT
+            BREAKPOINT ;
             m_link->flip(best+i, m_size-1-i) ;
         }
         for (int i = 0; i < (m_size-i0)/2; i++) {
-            BREAKPOINT
+            BREAKPOINT ;
             m_link->flip(i0+i, m_size-1-i) ;
         }
         m_link->solved(i0) ;
@@ -1301,11 +1327,11 @@ void Sorter::Pancake () {
 // //////// //
 
 void Sorter::Bitonic () {
-    BREAKPOINT
+    BREAKPOINT ;
     Bitonic_merge(0, m_size) ;
-    BREAKPOINT
+    BREAKPOINT ;
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -1317,12 +1343,12 @@ void Sorter::Bitonic_sort (int a, int b) {
         return ;
     }
     for (int i = 0; i < m; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->flip_ifn_cmp(a+i, a+m+i) ;
     }
-    BREAKPOINT
+    BREAKPOINT ;
     Bitonic_sort(a, a+m) ;
-    BREAKPOINT
+    BREAKPOINT ;
     Bitonic_sort(a+m, b) ;
 }
 
@@ -1335,20 +1361,20 @@ void Sorter::Bitonic_merge (int a, int b) {
     Bitonic_merge(a, a+m) ;
     Bitonic_merge(a+m, b) ;
     for (int i = 0; i < m; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->flip_ifn_cmp(a+i, b-1-i) ;
     }
-    BREAKPOINT
+    BREAKPOINT ;
     Bitonic_sort(a, a+m) ;
-    BREAKPOINT
+    BREAKPOINT ;
     Bitonic_sort(a+m, b) ;
 }
 
 void Sorter::OddEven () {
-    BREAKPOINT
+    BREAKPOINT ;
     OddEven_sort(0, m_size) ;
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -1356,23 +1382,23 @@ void Sorter::OddEven () {
 void Sorter::OddEven_sort (int a, int b) {
     if (b-a <= 1) return ;
     int m = a + (b-1-a)/2 ;
-    BREAKPOINT
+    BREAKPOINT ;
     OddEven_sort(a, m+1) ;
-    BREAKPOINT
+    BREAKPOINT ;
     OddEven_sort(m+1, b) ;
-    BREAKPOINT
+    BREAKPOINT ;
     OddEven_merge(a, b, 1) ;
 }
 
 void Sorter::OddEven_merge (int a, int b, int r) {
     int step = 2 * r ;
     if (step < b-1-a) {
-        BREAKPOINT
+        BREAKPOINT ;
         OddEven_merge(a, b, step) ;
-        BREAKPOINT
+        BREAKPOINT ;
         OddEven_merge(a + r, b, step) ;
         for (int i = a + r; i < b - 1 - r; i += step) {
-            BREAKPOINT
+            BREAKPOINT ;
             m_link->flip_ifn_cmp(i, i + r) ;
         }
     } else {
@@ -1386,7 +1412,7 @@ void Sorter::BitonicPara () {
     for (int lv = 1; lv < m_size; lv <<= 1) {
         for (int offset = 0; offset < lv; offset++) {
             for (int group = 0; group*lv*2 < m_size; group++) {
-                BREAKPOINT
+                BREAKPOINT ;
                 m_link->flip_ifn_cmp(lv*group*2+offset, lv*(group+1)*2-1-offset) ;
                 //printf("%d %d\n", lv*group*2+offset, lv*(group+1)*2-1-offset) ;
             }
@@ -1394,7 +1420,7 @@ void Sorter::BitonicPara () {
         for (int decr = lv/2; decr > 0; decr >>= 1) {
             for (int offset = 0; offset < decr; offset++) {
                 for (int group = 0; group*decr*2 < m_size; group++) {
-                    BREAKPOINT
+                    BREAKPOINT ;
                     m_link->flip_ifn_cmp(decr*group*2+offset, decr*(group*2+1)+offset) ;
                     //printf("%d %d\n", decr*group*2+offset, decr*(group*2+1)+offset) ;
                 }
@@ -1402,7 +1428,7 @@ void Sorter::BitonicPara () {
         }
     }
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -1411,7 +1437,7 @@ void Sorter::OddEvenPara () {
     for (int lv = 1; lv < m_size; lv <<= 1) {
         for (int offset = 0; offset < lv; offset++) {
             for (int group = 0; group*lv*2 < m_size; group++) {
-                BREAKPOINT
+                BREAKPOINT ;
                 m_link->flip_ifn_cmp(lv*group*2+offset, lv*(group*2+1)+offset) ;
                 //printf("%d %d\n", lv*group*2+offset, lv*(group*2+1)+offset) ;
             }
@@ -1420,7 +1446,7 @@ void Sorter::OddEvenPara () {
             for (int group = 0; group*lv*2 < m_size; group++) {
                 for (int tailing = 0; (tailing+1)*decr*2 < lv*2; tailing++) {
                     for (int offset = 0; offset < decr; offset++) {
-                        BREAKPOINT
+                        BREAKPOINT ;
                         m_link->flip_ifn_cmp(lv*group*2+decr*(tailing*2+1)+offset, lv*group*2+decr*(tailing+1)*2+offset) ;
                         //printf("%d %d\n", decr*(group*2+1)+offset, decr*(group+1)*2+offset) ;
                     }
@@ -1429,10 +1455,83 @@ void Sorter::OddEvenPara () {
         }
     }
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
+
+int access_shear (int N, int n, int i, int j) {
+    int k ;
+    if (i % 2 == 0) {
+        k = n * i + j ;
+    } else {
+        k = n * i + n - j - 1 ;
+    }
+    //printf("%d\n", k) ;
+    return k < N ? k : -1 ;
+}
+
+bool Sorter::shear_line (int N, int n, int i) {
+    bool useful = false ;
+    if (i % 2 == 0) {
+        for (int j = 0;  j < n && access_shear(N, n, i, j) != -1; j++) {
+            int k = j ;
+            while ((k > 0) && (m_link->cmp_ii(access_shear(N, n, i, k), access_shear(N, n, i, k-1)))) {
+                BREAKPOINT false ;
+                useful = true ;
+                m_link->flip(access_shear(N, n, i, k), access_shear(N, n, i, k-1)) ;
+                k-- ;
+            }
+        }
+    } else {
+        for (int j = 0;  j < n && access_shear(N, n, i, j) != -1; j++) {
+            int k = j ;
+            while ((k > 0) && (m_link->cmp_ii(access_shear(N, n, i, k-1), access_shear(N, n, i, k)))) {
+                BREAKPOINT false ;
+                useful = true ;
+                m_link->flip(access_shear(N, n, i, k), access_shear(N, n, i, k-1)) ;
+                k-- ;
+            }
+        }
+    }
+    return useful ;
+}
+
+bool Sorter::shear_col (int N, int n, int j) {
+    bool useful = false ;
+    for (int i = 0; i < n && access_shear(N, n, i, j) != -1; i++) {
+        int k = i ;
+        while ((k > 0) && (m_link->cmp_ii(access_shear(N, n, k, j), access_shear(N, n, k-1, j)))) {
+            BREAKPOINT false ;
+            useful = true ;
+            m_link->flip(access_shear(N, n, k, j), access_shear(N, n, k-1, j)) ;
+            k-- ;
+        }
+    }
+    return useful ;
+}
+
+
+void Sorter::ShearSort () {
+    bool keepGoing = true ;
+    int N = m_size ;
+    int n = (int)std::ceil(std::sqrt(N)) ;
+    while (keepGoing) {
+        BREAKPOINT ;
+        keepGoing = false ;
+        for (int i = 0; i < n; i++) {
+            keepGoing |= shear_line(N, n, i) ;
+            BREAKPOINT ;
+        }
+        for (int j = 0; j < n; j++) {
+            keepGoing |= shear_col(N, n, j) ;
+            BREAKPOINT ;
+        }
+    }
+    for (int i = 0; i < m_size; i++) m_link->solved(i) ;
+}
+
+
 
 // ////// //
 // STUPID //
@@ -1441,7 +1540,7 @@ void Sorter::OddEvenPara () {
 void Sorter::Slowsort () {
     Slowmerge(0, m_size) ;
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -1449,11 +1548,11 @@ void Sorter::Slowsort () {
 void Sorter::Slowmerge (int a, int b) {
     if (b - a <= 1) return ;
     int m = (a + b) / 2 ;
-    BREAKPOINT
+    BREAKPOINT ;
     Slowmerge(a, m) ;
-    BREAKPOINT
+    BREAKPOINT ;
     Slowmerge(m, b) ;
-    BREAKPOINT
+    BREAKPOINT ;
     m_link->flip_ifn_cmp(a, m) ;
     m_link->tmpsolve(a) ;
     Slowmerge(a+1, b) ;
@@ -1462,7 +1561,7 @@ void Sorter::Slowmerge (int a, int b) {
 void Sorter::Stoogesort () {
     Stooge(0, m_size) ;
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -1472,19 +1571,19 @@ void Sorter::Stooge (int a, int b) {
     if (b - a == 2) {
         m_link->flip_ifn_cmp(a, a+1) ;
     } else if (b - a == 3) {
-        BREAKPOINT
+        BREAKPOINT ;
         Stooge(a, a+2) ;
-        BREAKPOINT
+        BREAKPOINT ;
         Stooge(a+1, a+3) ;
-        BREAKPOINT
+        BREAKPOINT ;
         Stooge(a, a+2) ;
     } else {
         int tercile1 = std::floor(a*0.67 + b*0.33), tercile2 = std::ceil(a*0.33 + b*0.67) ;
-        BREAKPOINT
+        BREAKPOINT ;
         Stooge(a, tercile2) ;
-        BREAKPOINT
+        BREAKPOINT ;
         Stooge(tercile1, b) ;
-        BREAKPOINT
+        BREAKPOINT ;
         Stooge(a, tercile2) ;
     }
 }
@@ -1493,14 +1592,14 @@ void Sorter::Bogosort () {
     for (;;) {
         Scramble(0, m_size) ;
         for (int i = 1; i < m_size; i++) {
-            BREAKPOINT
+            BREAKPOINT ;
             if (!m_link->cmp_ii(i-1, i)) goto BREAK ;
         }
         break ;
         BREAK: continue ;
     }
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
@@ -1510,7 +1609,7 @@ void Sorter::LessBogosort () {
     while (I < m_size) {
         Scramble(I, m_size) ;
         for (int i = I+1; i < m_size; i++) {
-            BREAKPOINT
+            BREAKPOINT ;
             if (!m_link->cmp_ii(I, i)) goto BREAK ;
         }
         m_link->solved(I++) ;
@@ -1524,21 +1623,21 @@ void Sorter::Randsort () {
         int j = std::rand()%m_size ;
         m_link->flip_ifn_cmp(std::min(i, j), std::max(i, j)) ;
         for (int i = 1; i < m_size; i++) {
-            BREAKPOINT
+            BREAKPOINT ;
             if (m_link->cmp_ii(i, i-1)) goto BREAK ;
         }
         break ;
         BREAK: continue ;
     }
     for (int i = 0; i < m_size; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->solved(i) ;
     }
 }
 
 void Sorter::Scramble(int a, int b) {
     for (int i = a; i < b; i++) {
-        BREAKPOINT
+        BREAKPOINT ;
         m_link->flip(i, i+(std::rand()%(b-i))) ;
     }
 }

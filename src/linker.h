@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <QGraphicsLineItem>
+#include <QMediaPlayer>
 #include <QColor>
 #include <vector>
 #include <unistd.h>
