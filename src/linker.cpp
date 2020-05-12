@@ -54,14 +54,13 @@ void Linker::render (int i, QColor C) {
     if (m_size <= 256) {
         QPen pen = QPen (Qt::black) ;
         QBrush brush = QBrush (C) ;
-        m_scene->removeItem(m_rects[i]) ;
-        m_rects[i] = m_scene->addRect(left, up, m_width, height, pen, brush) ;
-        m_rects[i]->setToolTip(Tip(*m_array[i])) ;
+        m_rects[i]->setBrush(brush) ;
+        m_rects[i]->setPen(pen) ;
+        m_rects[i]->setRect(QRect(left, up, m_width, height));
     } else {
         QPen pen = QPen (C, 1, Qt::SolidLine) ;
-        m_scene->removeItem(m_lines[i]) ;
-        m_lines[i] = m_scene->addLine(left, up, left, 540, pen) ;
-        m_lines[i]->setToolTip(Tip(*m_array[i])) ;
+        m_lines[i]->setPen(pen) ;
+        m_lines[i]->setLine(left, up, left, 540) ;
     }
 
 }
@@ -76,12 +75,11 @@ Linker::~Linker () {
             m_scene->removeItem(m_lines[i]) ;
         }
     }
+    delete[] m_array ;
 }
 
 item Linker::get (int i) {
     render(i, RED) ;
-//    usleep(m_delay) ;
-//    QApplication::processEvents() ;
     delay() ;
     m_array[i]->read++ ;
     m_parent->INCRREAD() ;
