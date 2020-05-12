@@ -6,17 +6,9 @@ An app built with Qt to visualize a few dozen implemented sorting algorithms.
 
 ```diff
 - WARNING
-A massive memory leak has been detected and corrected in the source code and in the linux distribution,
-but the windows distribution has not been updated yet.
-The leak in question happened to occur in the single most used function of the whole app:
-`linker.cpp/Linker::render()`, resulting in a virtually unlimited amount of memory leaked
-(observed up to 1.3GB).
-```
-
-```diff
-- WARNING
-Another milder leak was then discovered and is also patched in the linux distribution (but not windows).
-This one has not been observed to cause problems any larger than 0.2MB.
+A few memory leaks have recently been discovered and patched.
+Both precompiled versions are up to date with the patched source
+code, but be aware that some other leaks may still be present.
 ```
 
 ## How to use
