@@ -1,16 +1,29 @@
 # Sorts Visualization
 An app built with Qt to visualize a few dozen implemented sorting algorithms.
 
-Includes many options for:
-* the distribution of values to sort (one item per value, random uniform distribution, normal distribution, biased towards high/low/extremal values)
+## How to use
+
+After cloning this repository, you can either use the compiled versions provided in `dist/` or choose to recompile. The latter will require Qt for C++ (see `dist/README.md` for compilation information).
+
+Execute either `dist/linux64/Sorts` or `dist/win32/Sorts.exe`, a window should open with a blank drawing zone and a menu on the right. Choose one of the sorting algorithms available using the two-menu selector (see list below for a complete list by category).
+
+You can then set the speed using the two sliders below. One will set the first digit (0-9) and another the magnitude (1-10-100 ms). Thus the delay can take one of 19 values between 0ms and 900ms.
+
+Only powers of two between 8 and 1024 are supported for the size of the array, in part due to the presence of a few algorithms that would need tweaking to run on arrays of a length that is not a power of 2. Selecting 1024 will automatically expand the window to the size required (i.e. more than 1024 pixels wide).
+
+The 'Distribution' menu allows to choose from:
+- one item per value
+- random uniform distribution
+- normal distribution
+- biased towards high/low/extremal values
+
+
 * the scramble (random, almost sorted, almost reversed, 1-1 shuffle)
 * the algorithm to use, divided in arbitrary but mostly coherent categories grouping variations of the same algorithm (e.g. bubblesort/cocktail sort), algorithms used as a subprocedure of another (e.g. radix sort/counting sort), or algorithms with the same basic approach (e.g. max heapsort/smoothsort).
 
 ![preview1](https://user-images.githubusercontent.com/58042063/69556308-cd33d200-0fa4-11ea-8d50-a9691932e909.png)
 
 Hovering over an algorithm name will display information on the worst-, average-, and best-case performance as well as an indication of the additional memory usage.
-
-Only powers of 2 are supported for the length of the array, in part due to the presence of two algorithms that would need modifications to run on arrays of a length that is not a power of 2.
 
 Delay can be set between all actions to help understand what is happening.
 Colors are also used to represent visually the actions of comparison, read and write. In some cases the items that are sorted, or partially sorted, are displayed as such in real time to help show which parts of the array are not being looked at.
