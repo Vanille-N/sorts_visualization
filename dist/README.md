@@ -13,6 +13,9 @@ For the latest distributed version
     - Qt 5.9.5
     - qmake 3.1
     - gcc 9.3.0
+<<<<<<< HEAD
 
 
 No specific setup was done: QtCreator can successfully compile the project with no other settings than `src/Sorts.pro`
+=======
+>>>>>>> 47b97f87176e247e2503dfe20d47c35bcc0343f8
