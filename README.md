@@ -1,43 +1,59 @@
 # Sorts Visualization
 An app built with Qt to visualize a few dozen implemented sorting algorithms.
 
+
+![preview1](https://user-images.githubusercontent.com/58042063/69556308-cd33d200-0fa4-11ea-8d50-a9691932e909.png)
+
 ## How to use
+
+#### Compile and execute
 
 After cloning this repository, you can either use the compiled versions provided in `dist/` or choose to recompile. The latter will require Qt for C++ (see `dist/README.md` for compilation information).
 
-Execute either `dist/linux64/Sorts` or `dist/win32/Sorts.exe`, a window should open with a blank drawing zone and a menu on the right. Choose one of the sorting algorithms available using the two-menu selector (see list below for a complete list by category).
+Execute either `dist/linux64/Sorts` or `dist/win32/Sorts.exe`, a window should open with a blank drawing zone and a menu on the right.
+
+#### Choose an algorithm
+
+Choose one of the sorting algorithms available using the two-menu selector (see list below for a complete list by category).
+
+The division of algorithms in categories is mostly arbitrary but categories tend to group algorithms that are either:
+- variations of each other (e.g. bubblesort/cocktail sort)
+- subprocedures of each other (e.g. radix sort/counting sort)
+- sharing the same basic approach (e.g. heapsort/smoothsort)
+- similar in other ways (e.g. easy to multithread)
+
+Hovering over an algorithm name will display information on the worst-, average-, and best-case performance as well as an indication of the additional memory usage.
+
+#### Choose speed, size, distribution, and scramble
 
 You can then set the speed using the two sliders below. One will set the first digit (0-9) and another the magnitude (1-10-100 ms). Thus the delay can take one of 19 values between 0ms and 900ms.
 
 Only powers of two between 8 and 1024 are supported for the size of the array, in part due to the presence of a few algorithms that would need tweaking to run on arrays of a length that is not a power of 2. Selecting 1024 will automatically expand the window to the size required (i.e. more than 1024 pixels wide).
 
-The 'Distribution' menu allows to choose from:<br>
-   ◦ one item per value<br>
-   ◦ random uniform distribution<br>
-   ◦ normal distribution<br>
-   ◦ biased towards high/low/extremal values<br>
+The 'Distribution' menu allows to choose from:
+- one item per value
+- random uniform distribution
+- normal distribution
+- biased towards high/low/extremal values
+
 <img src="img/dist_regular.png"><img src="img/dist_uniform.png"><img src="img/dist_extremal.png"><img src="img/dist_high.png">
 
+The scramble method can be chosen using the corresponding menu (random, almost sorted, almost reversed, 1-1 shuffle)
 
-* the scramble (random, almost sorted, almost reversed, 1-1 shuffle)
-* the algorithm to use, divided in arbitrary but mostly coherent categories grouping variations of the same algorithm (e.g. bubblesort/cocktail sort), algorithms used as a subprocedure of another (e.g. radix sort/counting sort), or algorithms with the same basic approach (e.g. max heapsort/smoothsort).
+#### Launch sorting
 
-![preview1](https://user-images.githubusercontent.com/58042063/69556308-cd33d200-0fa4-11ea-8d50-a9691932e909.png)
+When `Start` is pressed, the app generates a list according to the distribution settings, then shuffles it according to the scramble settings. Sorting begins immediately afterwards.
 
-Hovering over an algorithm name will display information on the worst-, average-, and best-case performance as well as an indication of the additional memory usage.
+It is impossible to change settings during sorting. Future versions may allow changing the delay only. `Abort` terminates the running procedure and is not recoverable (implemented with a macro that inserts conditionnal returns in key places of the sorting functions). `Pause` merely calls an infinite loop of interface refresh with a priority higher than the sorting algorithm, thus you should expect no less CPU usage when pausing than when running. (`Abort` however is expected to reduce to (almost) 0 the CPU usage)
 
-Delay can be set between all actions to help understand what is happening.
-Colors are also used to represent visually the actions of comparison, read and write. In some cases the items that are sorted, or partially sorted, are displayed as such in real time to help show which parts of the array are not being looked at.
-
-![preview3](https://user-images.githubusercontent.com/58042063/69556984-12a4cf00-0fa6-11ea-8e35-a135c2b1bdc1.png)
-
-Aborting or interrupting the execution are finally supported !
+Memory usage has been detected to unexpectedly increase during execution, this matter will be looked into.
 
 Three LCD displays record the number of calls to the compare, read, and write functions.
 
 ![preview2](https://user-images.githubusercontent.com/58042063/69555822-12a3cf80-0fa4-11ea-9cb6-78d90981062c.png)
 
-List of algorithms by category:
+## List of algorithms by category:
+
 * bubblesort
     * upwards bubblesort
     * downwards bubblesort
