@@ -1,5 +1,4 @@
-#ifndef DISTRIBUTOR_H
-#define DISTRIBUTOR_H
+#pragma once
 
 #include <experimental/random>
 #include <algorithm>
@@ -25,4 +24,3 @@ private:
     item * m_array ;
 };
 
-#endif // DISTRIBUTOR_H

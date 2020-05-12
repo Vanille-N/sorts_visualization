@@ -1,5 +1,4 @@
-#ifndef OPTIONMGR_H
-#define OPTIONMGR_H
+#pragma once
 
 #include <QComboBox>
 
@@ -14,5 +13,3 @@ public slots:
 private:
     QComboBox * m_menu ;
 };
-
-#endif // OPTIONMGR_H

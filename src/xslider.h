@@ -1,5 +1,4 @@
-#ifndef XSLIDER_H
-#define XSLIDER_H
+#pragma once
 
 #include <QWidget>
 #include <QSlider>
@@ -22,5 +21,3 @@ private:
     QSlider * m_slideMul ;
     QLabel * m_disp ;
 };
-
-#endif // XSLIDER_H

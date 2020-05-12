@@ -1,5 +1,4 @@
-#ifndef LINKER_H
-#define LINKER_H
+#pragma once
 
 #include <QApplication>
 #include <QWidget>
@@ -63,5 +62,3 @@ private:
     int m_width ;
     int m_delay ;
 };
-
-#endif // LINKER_H

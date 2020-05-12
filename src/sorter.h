@@ -1,5 +1,4 @@
-#ifndef SORTER_H
-#define SORTER_H
+#pragma once
 
 #include "linker.h"
 #include <math.h>
@@ -100,5 +99,3 @@ private:
     int m_size ;
     bool ok ;
 };
-
-#endif // SORTER_H

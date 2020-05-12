@@ -1,5 +1,4 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#pragma once
 
 #include <QWidget>
 #include <QComboBox>
@@ -56,5 +55,3 @@ private:
     item * m_array ;
     bool playing ;
 };
-
-#endif // WINDOW_H
