@@ -30,7 +30,7 @@ List of algorithms by category:
     * cocktail shaker
     * comb sort
 
-![](img/bubble.gif)
+![](img/view_bubble.gif)
 
 * quicksort
     * first element as pivot, naive partition
@@ -38,14 +38,14 @@ List of algorithms by category:
     * median of three, optimized
     * median of medians for optimal pivot
 
-![](img/quick.gif)
+![](img/view_quick.gif)
 
 * mergesort
     * mergesort
     * bottom-up mergesort
     * weavesort
 
-![](img/merge.gif)
+![](img/view_merge.gif)
 
 * radix sort
     * LSD base 2
@@ -56,13 +56,13 @@ List of algorithms by category:
     * MSD base 8
     * counting sort
 
-![](img/radix.gif)
+![](img/view_radix.gif)
 
 * bucket sort
     * same-length buckets
     * calibrated with random sampler
 
-![](img/bucket.gif)
+![](img/view_bucket.gif)
 
 * insertion sort
     * insertion sort
@@ -70,7 +70,7 @@ List of algorithms by category:
     * binary insertion
     * gnome sort
 
-![](img/shell.gif)
+![](img/view_shell.gif)
 
 * heapsort
     * max heapsort (2 variants)
@@ -78,7 +78,7 @@ List of algorithms by category:
     * ternary max heapsort
     * smoothsort
 
-![](img/heap.gif)
+![](img/view_heap.gif)
 
 * selection sort
     * max select
@@ -88,7 +88,7 @@ List of algorithms by category:
     * cycle sort with memory of sorted values
     * pancake sort
 
-![](img/select.gif)
+![](img/view_select.gif)
 
 * networks
     * bitonic sort
@@ -96,7 +96,7 @@ List of algorithms by category:
     both with DFS or BFS sequentialization.
     * shear sort
 
-![](img/bitonic.gif)
+![](img/view_bitonic.gif)
 
 * suboptimal sorts
     * slowsort
@@ -104,7 +104,7 @@ List of algorithms by category:
     * (less) bogosort
     * random comparisons
 
-![](img/bogo.gif)
+![](img/view_bogo.gif)
 
 The design of the project should make it easy to add more algorithms, please feel free to suggest any.
 I am already considering adding recursive bucket sort.
