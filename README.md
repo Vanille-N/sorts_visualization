@@ -1,8 +1,17 @@
 # Sorts Visualization
 An app built with Qt to visualize a few dozen implemented sorting algorithms.
 
-
 ![preview1](https://user-images.githubusercontent.com/58042063/69556308-cd33d200-0fa4-11ea-8d50-a9691932e909.png)
+
+
+```diff
+- WARNING
+ A massive memory leak has been detected and corrected in the source code and in the linux distribution, but
+- the windows distribution has not been updated yet.
+The leak in question happened to occur in the single most used function of the whole app:
+`linker.cpp/Linker::render()`, resulting in a virtually unlimited amount of memory leaked
+(observed up to 1.3GB).
+```
 
 ## How to use
 
@@ -45,8 +54,6 @@ The scramble method can be chosen using the corresponding menu (random, almost s
 When `Start` is pressed, the app generates a list according to the distribution settings, then shuffles it according to the scramble settings. Sorting begins immediately afterwards.
 
 It is impossible to change settings during sorting. Future versions may allow changing the delay only. `Abort` terminates the running procedure and is not recoverable (implemented with a macro that inserts conditionnal returns in key places of the sorting functions). `Pause` merely calls an infinite loop of interface refresh with a priority higher than the sorting algorithm, thus you should expect no less CPU usage when pausing than when running. (`Abort` however is expected to reduce to (almost) 0 the CPU usage)
-
-Memory usage has been detected to unexpectedly increase during execution, this matter will be looked into.
 
 Three LCD displays record the number of calls to the compare, read, and write functions.
 
