@@ -25,16 +25,7 @@ Window::Window (QWidget * parent, QGraphicsScene * scene, QGraphicsView * view) 
     m_optmgr->connect(m_chooseAlgo, SIGNAL(currentIndexChanged(int)), m_optmgr, SLOT(updateOptions(int))) ;
     m_chooseAlgo->setCurrentIndex(1) ;
     m_chooseAlgo->setCurrentIndex(0) ; // To force a refresh
-//    m_chooseDelay = new QComboBox (this) ;
-//    m_chooseDelay->addItem("None") ;
-//    m_chooseDelay->addItem("1") ;
-//    m_chooseDelay->addItem("2") ;
-//    m_chooseDelay->addItem("5") ;
-//    m_chooseDelay->addItem("10") ;
-//    m_chooseUnit = new QComboBox (this) ;
-//    m_chooseUnit->addItem("x1 ms") ;
-//    m_chooseUnit->addItem("x10 ms") ;
-//    m_chooseUnit->addItem("x100 ms") ;
+
     QVector<int> delayVals = {0, 1, 2, 3, 5, 7, 9} ;
     QVector<int> unitVals = {1, 10, 100} ;
     m_chooseDelay = new XSlider (delayVals, unitVals) ;
@@ -60,9 +51,7 @@ Window::Window (QWidget * parent, QGraphicsScene * scene, QGraphicsView * view) 
     m_chooseSize->addItem("512") ;
     m_chooseSize->addItem("1024") ;
     m_chooseSize->connect(m_chooseSize, SIGNAL(currentIndexChanged(int)), this, SLOT(Resize(int))) ;
-//    QVector<int> sizeVals = {8, 16, 32, 64, 128, 256, 512, 1024} ;
-//    m_chooseSize = new XSlider (sizeVals) ;
-//    m_chooseSize->connect(m_chooseSize, SIGNAL(valChanged(int)), this, SLOT(Resize(int))) ;
+
     m_nbCmp = new QLCDNumber (this) ;
     m_nbCmp->setDigitCount(10) ;
     m_nbRead = new QLCDNumber (this) ;
@@ -109,8 +98,8 @@ Window::Window (QWidget * parent, QGraphicsScene * scene, QGraphicsView * view) 
 
 void Window::kill () {
     m_sort->stop() ;
-    //delete m_sort ;
-    //delete m_link ;
+    delete m_sort ;
+    delete m_link ;
     m_parent->close() ;
 }
 
