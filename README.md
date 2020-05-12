@@ -17,7 +17,9 @@ The leak in question happened to occur in the single most used function of the w
 
 #### Compile and execute
 
-After cloning this repository, you can either use the compiled versions provided in `dist/` or choose to recompile. The latter will require Qt for C++ (see `dist/README.md` for compilation information).
+After cloning this repository, you can either use the compiled versions provided in `dist/` or choose to recompile. The latter will require Qt for C++.
+See `dist/README.md` for compilation information.
+The `dist/linux64/` is almost always up to date, but beware that `dist/win32/` is much more rarely so.
 
 Execute either `dist/linux64/Sorts` or `dist/win32/Sorts.exe`, a window should open with a blank drawing zone and a menu on the right.
 
