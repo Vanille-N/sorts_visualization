@@ -7,8 +7,8 @@ Window::Window (QWidget * parent, QGraphicsScene * scene, QGraphicsView * view) 
     m_view = view ;
     show() ;
     setFixedSize(160, 500) ;
-    m_array = new item [0] ;
     move(550, 10) ;
+    playing = false ;
     m_chooseAlgo = new QComboBox (this) ;
     m_chooseAlgo->addItem("Bubblesort") ;
     m_chooseAlgo->addItem("Quicksort") ;
@@ -29,6 +29,7 @@ Window::Window (QWidget * parent, QGraphicsScene * scene, QGraphicsView * view) 
     QVector<int> delayVals = {0, 1, 2, 3, 5, 7, 9} ;
     QVector<int> unitVals = {1, 10, 100} ;
     m_chooseDelay = new XSlider (delayVals, unitVals) ;
+    m_chooseDelay->setParent(this) ;
     m_chooseDistrib = new QComboBox (this) ;
     m_chooseDistrib->addItem("Regular") ;
     m_chooseDistrib->addItem("Uniform (random)") ;
@@ -65,24 +66,24 @@ Window::Window (QWidget * parent, QGraphicsScene * scene, QGraphicsView * view) 
     m_playpause = new QPushButton ("", this) ;
     m_playpause->setEnabled(false) ;
     m_optmgr->connect(m_exit, SIGNAL(clicked()), this, SLOT(kill())) ;
-    m_chooseMenu = new QVBoxLayout ;
-    m_chooseMenu->addWidget(new QLabel ("Algorithm:")) ;
+    m_chooseMenu = new QVBoxLayout () ;
+    m_chooseMenu->addWidget(new QLabel ("Algorithm:", this)) ;
     m_chooseMenu->addWidget(m_chooseAlgo) ;
-    m_chooseMenu->addWidget(new QLabel ("Specification:")) ;
+    m_chooseMenu->addWidget(new QLabel ("Specification:", this)) ;
     m_chooseMenu->addWidget(m_chooseOption) ;
-    m_chooseMenu->addWidget(new QLabel ("Delay:")) ;
+    m_chooseMenu->addWidget(new QLabel ("Delay:", this)) ;
     m_chooseMenu->addWidget(m_chooseDelay) ;
-    m_chooseMenu->addWidget(new QLabel ("Size:")) ;
+    m_chooseMenu->addWidget(new QLabel ("Size:", this)) ;
     m_chooseMenu->addWidget(m_chooseSize) ;
-    m_chooseMenu->addWidget(new QLabel ("Distribution:")) ;
+    m_chooseMenu->addWidget(new QLabel ("Distribution:", this)) ;
     m_chooseMenu->addWidget(m_chooseDistrib) ;
-    m_chooseMenu->addWidget(new QLabel ("Scramble:")) ;
+    m_chooseMenu->addWidget(new QLabel ("Scramble:", this)) ;
     m_chooseMenu->addWidget(m_chooseScramble) ;
-    m_chooseMenu->addWidget(new QLabel ("Comparisons")) ;
+    m_chooseMenu->addWidget(new QLabel ("Comparisons", this)) ;
     m_chooseMenu->addWidget(m_nbCmp) ;
-    m_chooseMenu->addWidget(new QLabel ("Accesses (read)")) ;
+    m_chooseMenu->addWidget(new QLabel ("Accesses (read)", this)) ;
     m_chooseMenu->addWidget(m_nbRead) ;
-    m_chooseMenu->addWidget(new QLabel ("Accesses (write)")) ;
+    m_chooseMenu->addWidget(new QLabel ("Accesses (write)", this)) ;
     m_chooseMenu->addWidget(m_nbWrite) ;
     auto buttons = new QGridLayout () ;
     buttons->addWidget(m_start, 1, 1) ;
@@ -92,22 +93,23 @@ Window::Window (QWidget * parent, QGraphicsScene * scene, QGraphicsView * view) 
     m_chooseMenu->addLayout(buttons) ;
     setLayout(m_chooseMenu) ;
 
-    setWindowTitle("SRT - A visualizer for sorting algorithms, by Vanille") ;
+    setWindowTitle("A visualizer for sorting algorithms, by Vanille-N") ;
     m_optmgr->connect(m_start, SIGNAL(clicked()), this, SLOT(run())) ;
 }
 
 void Window::kill () {
-    m_sort->stop() ;
-    delete m_sort ;
-    delete m_link ;
+    if (playing) {
+        m_sort->stop() ;
+        delete m_link ;
+        delete m_sort ;
+        delete[] m_array ;
+    }
     m_parent->close() ;
 }
 
 void Window::run () {
-//    printf("Clicked !") ;
     m_start->setText("") ;
     disconnect(m_start, SIGNAL(clicked()), this, SLOT(run())) ;
-    //connect(m_start, SIGNAL(clicked()), this, SLOT(abort())) ;
     connect(m_playpause, SIGNAL(clicked()), this, SLOT(pause())) ;
     m_playpause->setText("Pause") ;
     m_playpause->setEnabled(true) ;
@@ -116,10 +118,9 @@ void Window::run () {
     m_abort->setEnabled(true) ;
     m_start->setEnabled(false) ;
     int size = (1 << (m_chooseSize->currentIndex()+3)) ;
-//    printf("%d\n", size) ;
-    delete[] m_array ;
+
     m_array = new item [size] ;
-    Distributor * distr = new Distributor (size, m_array) ;
+    auto distr = Distributor (size, m_array) ;
     m_chooseAlgo->setEnabled(false) ;
     m_chooseOption->setEnabled(false) ;
     m_chooseDelay->setEnabled(false) ;
@@ -127,22 +128,21 @@ void Window::run () {
     m_chooseDistrib->setEnabled(false) ;
     m_chooseScramble->setEnabled(false) ;
     switch (m_chooseDistrib->currentIndex()) {
-        case 0: distr->Dregular() ; break ;
-        case 1: distr->Duniform() ; break ;
-        case 2: distr->Dcentered() ; break ;
-        case 3: distr->Dsplit() ; break ;
-        case 4: distr->Dhigh() ; break ;
-        case 5: distr->Dlow() ; break ;
+        case 0: distr.Dregular() ; break ;
+        case 1: distr.Duniform() ; break ;
+        case 2: distr.Dcentered() ; break ;
+        case 3: distr.Dsplit() ; break ;
+        case 4: distr.Dhigh() ; break ;
+        case 5: distr.Dlow() ; break ;
     }
     switch (m_chooseScramble->currentIndex()) {
-        case 0: distr->Srandom() ; break ;
-        case 1: distr->Ssorted() ; break ;
-        case 2: distr->Sreversed() ; break ;
-        case 3: distr->Sshuffle() ; break ;
+        case 0: distr.Srandom() ; break ;
+        case 1: distr.Ssorted() ; break ;
+        case 2: distr.Sreversed() ; break ;
+        case 3: distr.Sshuffle() ; break ;
     }
     int delay = m_chooseDelay->getval()*1000 ;
 
-//    printf("Create Link \n") ;
     m_link = new Linker (this, m_array, size, m_scene, delay) ;
     m_sort = new Sorter (m_link) ;
 
@@ -230,13 +230,11 @@ void Window::run () {
     m_playpause->setEnabled(false) ;
     m_abort->setText("") ;
     m_abort->setEnabled(false) ;
-    //m_optmgr->disconnect(m_start, SIGNAL(clicked()), this, SLOT(abort())) ;
     m_optmgr->connect(m_start, SIGNAL(clicked()), this, SLOT(done())) ;
-    //delete m_link ;
-    //delete m_sort ;
 }
 
 void Window::done () {
+    delete[] m_array ;
     delete m_link ;
     delete m_sort ;
     m_chooseAlgo->setEnabled(true) ;
@@ -256,9 +254,6 @@ void Window::done () {
 
 void Window::abort () {
     m_sort->stop() ;
-    if (!playing) play() ;
-    //delete m_sort ;
-    //delete m_link ;
 }
 
 void Window::pause () {

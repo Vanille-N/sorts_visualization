@@ -39,5 +39,12 @@ int main(int argc, char* argv[]) {
 
     mainWindow->show();
 
-    return app.exec();
+    auto res = app.exec();
+
+    delete mainWindow ;
+    delete scene ;
+    delete view ;
+    delete frame ;
+
+    return res ;
 }

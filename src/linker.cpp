@@ -69,10 +69,12 @@ Linker::~Linker () {
     if (m_size <= 256) {
         for (int i = 0; i < m_size; i++) {
             m_scene->removeItem(m_rects[i]) ;
+            delete m_rects[i] ;
         }
     } else {
         for (int i = 0; i < m_size; i++) {
             m_scene->removeItem(m_lines[i]) ;
+            delete m_lines[i] ;
         }
     }
     delete[] m_array ;

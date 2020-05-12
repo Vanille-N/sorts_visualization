@@ -2,6 +2,7 @@
 
 OptionMgr::OptionMgr (QComboBox * menu) {
     m_menu = menu ;
+    setParent(menu) ;
 }
 
 void OptionMgr::updateOptions (int algorithm) {
