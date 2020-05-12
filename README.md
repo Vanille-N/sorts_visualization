@@ -11,11 +11,12 @@ You can then set the speed using the two sliders below. One will set the first d
 
 Only powers of two between 8 and 1024 are supported for the size of the array, in part due to the presence of a few algorithms that would need tweaking to run on arrays of a length that is not a power of 2. Selecting 1024 will automatically expand the window to the size required (i.e. more than 1024 pixels wide).
 
-The 'Distribution' menu allows to choose from:
-- one item per value
-- random uniform distribution
-- normal distribution
-- biased towards high/low/extremal values
+The 'Distribution' menu allows to choose from:<br>
+◦ one item per value<br>
+◦ random uniform distribution<br>
+◦ normal distribution<br>
+◦ biased towards high/low/extremal values<br>
+<img src="img/dist_regular.png"><img src="img/dist_uniform.png"><img src="img/dist_extremal.png"><img src="img/dist_high.png">
 
 
 * the scramble (random, almost sorted, almost reversed, 1-1 shuffle)
