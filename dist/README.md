@@ -2,7 +2,7 @@
 For the latest distributed version
 
 - for Windows :
-    - VM 32 bits (host Ubuntu 18.04, VirtualBox)
+    - VM Windows 10, 32 bits (host Ubuntu 18.04, VirtualBox)
     - Qt 5.14.1
     - qmake 3.1
     - mingw 7.3
