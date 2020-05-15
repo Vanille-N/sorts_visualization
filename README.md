@@ -11,6 +11,21 @@ Both precompiled versions are up to date with the patched source
 code, but be aware that some other leaks may still be present.
 ```
 
+```diff
+! NOTE
+According to this answer:
+>>> Stack Overflow - How to make Qt GUI apps in C++ without memory leaks
+>>> @@ https://stackoverflow.com/a/14073965/10027774 @@
+The remaining leaks detected by Valgrind are mild at worst, intentionnal at best.
+```
+
+```diff
+! NOTE
+Actual appearance may change depending on the version of Qt and the OS.
+All images featured in this document were captured under Ubuntu (18.04 or 20.04)
+```
+
+
 ## How to use
 
 #### Compile and execute
