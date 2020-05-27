@@ -157,7 +157,7 @@ void Window::run () {
     m_sort = new Sorter (m_link) ;
 
     if (recording) {
-        for (int i = 0; i < 20; i++) m_link->frame() ;
+        for (int i = 0; i < 100; i++) m_link->frame() ;
     }
 
     switch (m_chooseAlgo->currentIndex()) {
@@ -307,9 +307,9 @@ std::string b62 (long long unsigned int n) {
 void Window::build () {
     recording = false ;
     disconnect(m_abort, SIGNAL(clicked()), this, SLOT(build())) ;
-    for (int i = 0; i < 20; i++) m_link->frame() ;
+    for (int i = 0; i < 100; i++) m_link->frame() ;
     std::cout << "building..." << std::endl ;
-    std::system("ffmpeg -loglevel quiet -pattern_type sequence -framerate 60 -i .%d.png -vcodec libx264 .tmp.avi") ;
+    std::system("ffmpeg -loglevel quiet -pattern_type sequence -framerate 500 -i .%d.png -vcodec libx264 .tmp.avi") ;
     std::cout << "converting to gif..." << std::endl ;
     std::system("ffmpeg -loglevel quiet -i .tmp.avi -vf \"fps=20,scale=320:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse\" -loop 0 .tmp.gif") ;
     std::system("rm .*.png") ;
