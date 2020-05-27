@@ -38,7 +38,7 @@ Execute either `dist/linux64/Sorts` or `dist/win32/Sorts.exe`, a window should o
 
 #### Choose an algorithm
 
-Choose one of the sorting algorithms available using the two-menu selector (see list below for a complete list by category).
+Choose one of the sorting algorithms available using the two-menu selector (see below for a complete list by category).
 
 The division of algorithms in categories is mostly arbitrary but categories tend to group algorithms that are either:
 - variations of each other (e.g. bubblesort/cocktail sort)
@@ -68,7 +68,7 @@ The scramble method can be chosen using the corresponding menu (random, almost s
 
 When `Start` is pressed, the app generates a list according to the distribution settings, then shuffles it according to the scramble settings. Sorting begins immediately afterwards.
 
-It is impossible to change settings during sorting. Future versions may allow changing the delay only. `Abort` terminates the running procedure and is not recoverable (implemented with a macro that inserts conditionnal returns in key places of the sorting functions). `Pause` merely calls an infinite loop of interface refresh with a priority higher than the sorting algorithm, thus you should expect no less CPU usage when pausing than when running. (`Abort` however is expected to reduce to (almost) 0 the CPU usage)
+It is impossible to change settings during sorting. Future versions may allow changing the delay only. `Abort` terminates the running procedure and is not recoverable (implemented with a macro that inserts conditional returns in key places of the sorting functions). `Pause` merely calls an infinite loop of interface refresh with a priority higher than the sorting algorithm, thus you should expect no less CPU usage when pausing than when running. (`Abort` however is expected to reduce to *almost* 0 the CPU usage)
 
 Three LCD displays record the number of calls to the compare, read, and write functions.
 
@@ -143,9 +143,8 @@ Three LCD displays record the number of calls to the compare, read, and write fu
 ![](img/view_select.gif)
 
 * networks
-    * bitonic sort
-    * odd-even mergesort
-    both with DFS or BFS sequentialization.
+    * bitonic sort (DFS or BFS sequentialization)
+    * odd-even mergesort (DFS or BFS sequentialization)
     * shear sort
 
 ![](img/view_bitonic.gif)
@@ -165,4 +164,4 @@ My attempts at adding sound have been unsuccessful as the only sounds I could ge
 
 
 _Disclaimer:_
-_Even though I included smoothsort, I still don't understand how the code works. That part (and only that part) was copy-pasted straight from Google._
+_Even though I included smoothsort, I still don't understand how the code works. That part (and only that part) was copy-pasted without much modifications._
