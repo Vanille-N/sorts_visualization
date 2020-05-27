@@ -43,6 +43,7 @@ public:
     void solved (int) ;
     void tmpsolve (int) ;
     int getSize () ;
+    void frame () ;
     void setBinHeapLv (int) ;
     void setTerHeapLv (int) ;
     void flip_ifn_cmp (int, int) ;
@@ -62,5 +63,5 @@ private:
     int m_width ;
     int m_delay ;
     bool recording ;
-    int frame ;
+    int frame_num ;
 };

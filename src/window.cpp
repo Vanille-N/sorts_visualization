@@ -106,14 +106,13 @@ void Window::kill () {
         delete[] m_array ;
     }
     if (recording) {
-        std::system("rm -r .recording") ;
+        std::system("rm .*.png") ;
     }
     m_parent->close() ;
 }
 
 void Window::record () {
     recording = true ;
-    std::system("mkdir .recording") ;
     run() ;
 }
 
@@ -269,7 +268,7 @@ void Window::done () {
     m_abort->setEnabled(true) ;
     if (recording) {
         disconnect(m_abort, SIGNAL(clicked()), this, SLOT(build())) ;
-        std::system("rm -r .recording") ;
+        std::system("rm .*.png") ;
         recording = false ;
     }
     disconnect(m_start, SIGNAL(clicked()), this, SLOT(done())) ;
@@ -284,7 +283,7 @@ void Window::abort () {
     disconnect(m_abort, SIGNAL(clicked()), this, SLOT(abort())) ;
     if (recording) {
         recording = false ;
-        std::system("rm -r .recording") ;
+        std::system("rm .*.png") ;
     }
 }
 
@@ -292,7 +291,7 @@ void Window::build () {
     recording = false ;
     disconnect(m_abort, SIGNAL(clicked()), this, SLOT(build())) ;
     std::system("echo build") ;
-    std::system("rm -r .recording") ;
+    std::system("rm .*.png") ;
     done() ;
 }
 

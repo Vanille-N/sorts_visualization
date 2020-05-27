@@ -9,7 +9,7 @@ Linker::Linker (Window * parent, item * array, int size, QGraphicsScene * scene,
     m_delay = delay ;
     m_parent = parent ;
     recording = rec ;
-    frame = 0 ;
+    frame_num = 0 ;
     m_width = std::max(512 / m_size, 1) ;
     m_array = new item * [m_size] ;
     for (int i = 0; i < m_size; i++) {
@@ -46,12 +46,20 @@ Linker::Linker (Window * parent, item * array, int size, QGraphicsScene * scene,
 void Linker::delay () {
     for (int i = 0; i <= m_delay/6; i++) {
         QApplication::processEvents() ;
-        if (recording) {
-            std::ostringstream name ;
-            name << "touch .recording/" << frame++ << ".png" ;
-            //std::cout << name.str() << std::endl ;
-            std::system(name.str().c_str()) ;
-        }
+        frame() ;
+    }
+}
+
+void Linker::frame () {
+    if (recording) {
+        std::ostringstream name ;
+        name << "." << frame_num++ << ".png" ;
+        auto fn = name.str().c_str() ;
+        QImage img (m_scene->sceneRect().size().toSize(), QImage::Format_RGB32) ;
+        img.fill(Qt::white) ;
+        QPainter paint (&img) ;
+        m_scene->render(&paint) ;
+        img.save(fn) ;
     }
 }
 
@@ -196,11 +204,13 @@ void Linker::flip (int i, int j) {
 void Linker::solved (int i) {
     m_array[i]->rank = i+1 ;
     render(i, GREEN) ;
+    frame() ;
     QApplication::processEvents() ;
 }
 
 void Linker::tmpsolve (int i) {
     render(i, APPLE) ;
+    frame() ;
     QApplication::processEvents() ;
 }
 
@@ -219,6 +229,7 @@ void Linker::setHeapLv (int idx, int base) {
     QColor c ;
     c.setHsv(lv*255/8, 100, 255) ;
     render(idx, c) ;
+    frame() ;
     QApplication::processEvents() ;
 }
 
