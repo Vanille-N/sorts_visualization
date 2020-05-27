@@ -105,6 +105,9 @@ void Window::kill () {
         delete m_sort ;
         delete[] m_array ;
     }
+    if (recording) {
+        std::system("rm -r .recording") ;
+    }
     m_parent->close() ;
 }
 
@@ -151,7 +154,7 @@ void Window::run () {
     }
     int delay = m_chooseDelay->getval()*1000 ;
 
-    m_link = new Linker (this, m_array, size, m_scene, delay) ;
+    m_link = new Linker (this, m_array, size, m_scene, delay, recording) ;
     m_sort = new Sorter (m_link) ;
 
     switch (m_chooseAlgo->currentIndex()) {

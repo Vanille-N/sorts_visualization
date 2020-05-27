@@ -2,12 +2,14 @@
 #include "window.h"
 #include <stdlib.h>
 
-Linker::Linker (Window * parent, item * array, int size, QGraphicsScene * scene, int delay) {
+Linker::Linker (Window * parent, item * array, int size, QGraphicsScene * scene, int delay, bool rec) {
     m_mem = array ;
     m_size = size ;
     m_scene = scene ;
     m_delay = delay ;
     m_parent = parent ;
+    recording = rec ;
+    frame = 0 ;
     m_width = std::max(512 / m_size, 1) ;
     m_array = new item * [m_size] ;
     for (int i = 0; i < m_size; i++) {
@@ -44,6 +46,12 @@ Linker::Linker (Window * parent, item * array, int size, QGraphicsScene * scene,
 void Linker::delay () {
     for (int i = 0; i <= m_delay/6; i++) {
         QApplication::processEvents() ;
+        if (recording) {
+            std::ostringstream name ;
+            name << "touch .recording/" << frame++ << ".png" ;
+            //std::cout << name.str() << std::endl ;
+            std::system(name.str().c_str()) ;
+        }
     }
 }
 

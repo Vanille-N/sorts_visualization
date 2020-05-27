@@ -9,6 +9,8 @@
 #include <QColor>
 #include <vector>
 #include <unistd.h>
+#include <sstream>
+#include <iostream>
 #include "item.h"
 
 #define WHITE QColor(255, 255, 255)
@@ -23,7 +25,7 @@ class Window ;
 
 class Linker {
 public:
-    Linker (Window *, item *, int, QGraphicsScene *, int) ;
+    Linker (Window *, item *, int, QGraphicsScene *, int, bool) ;
     ~Linker () ;
     //int read (int) ;
     //void write (int) ;
@@ -61,4 +63,6 @@ private:
     //int m_readingIdx ;
     int m_width ;
     int m_delay ;
+    bool recording ;
+    int frame ;
 };
