@@ -99,8 +99,6 @@ item Linker::get (int i) {
 
 item * Linker::send (int i) {
     render(i, RED) ;
-//    usleep(m_delay) ;
-//    QApplication::processEvents() ;
     delay() ;
     m_array[i]->read++ ;
     m_array[i]->swap++ ;
@@ -112,8 +110,6 @@ item * Linker::send (int i) {
 bool Linker::cmp_ii (int i, int j) {
     render(i, BLUE) ;
     render(j, BLUE) ;
-//    usleep(m_delay) ;
-//    QApplication::processEvents() ;
     delay() ;
     m_array[i]->cmp++ ;
     m_array[j]->cmp++ ;
@@ -139,8 +135,6 @@ bool Linker::cmp_ee (item * a, item * b) {
 bool Linker::cmp_ie (int i, item * a) {
     render(i, BLUE) ;
     usleep(m_delay) ;
-//    QApplication::processEvents() ;
-//    m_array[i]->read++ ;
     delay() ;
     m_parent->INCRREAD() ;
     a->read++ ;
@@ -153,8 +147,6 @@ bool Linker::cmp_ie (int i, item * a) {
 
 bool Linker::cmp_ei (item * a, int i) {
     render(i, BLUE) ;
-//    usleep(m_delay) ;
-//    QApplication::processEvents() ;
     delay() ;
     m_array[i]->read++ ;
     m_parent->INCRREAD() ;
@@ -169,8 +161,6 @@ bool Linker::cmp_ei (item * a, int i) {
 void Linker::set (int i, item val) {
     *m_array[i] = val ;
     render(i, PURPLE) ;
-//    usleep(m_delay) ;
-//    QApplication::processEvents() ;
     delay() ;
     m_array[i]->swap++ ;
     m_parent->INCRWRITE() ;
@@ -180,8 +170,6 @@ void Linker::set (int i, item val) {
 void Linker::receive (int i, item * val) {
     m_array[i] = val ;
     render(i, PURPLE) ;
-//    usleep(m_delay) ;
-//    QApplication::processEvents() ;
     delay() ;
     m_array[i]->swap++ ;
     m_parent->INCRWRITE() ;
@@ -196,8 +184,6 @@ void Linker::flip (int i, int j) {
     m_parent->INCRREAD() ;
     render(i, PURPLE) ;
     render(j, PURPLE) ;
-//    usleep(m_delay) ;
-//    QApplication::processEvents() ;
     delay() ;
     m_array[i]->swap++ ;
     m_array[j]->swap++ ;
@@ -217,26 +203,6 @@ void Linker::tmpsolve (int i) {
     render(i, APPLE) ;
     QApplication::processEvents() ;
 }
-
-//void Linker::incr (int i) {
-//    m_array[i]++ ;
-//    render(i, RED) ;
-//    usleep(m_delay) ;
-//    QApplication::processEvents() ;
-//    render(i, ORANGE) ;
-//    m_parent->INCRWRITE() ;
-//    m_parent->INCRREAD() ;
-//}
-
-//void Linker::decr (int i) {
-//    m_array[i]-- ;
-//    render(i, RED) ;
-//    usleep(m_delay) ;
-//    QApplication::processEvents() ;
-//    render(i, ORANGE) ;
-//    m_parent->INCRWRITE() ;
-//    m_parent->INCRREAD() ;
-//}
 
 int Linker::getSize () { return m_size ; }
 
@@ -273,8 +239,6 @@ void Linker::flip_ifn_cmp (int i, int j) {
         m_parent->INCRWRITE() ;
         m_parent->INCRWRITE() ;
     }
-//    usleep(m_delay) ;
-//    QApplication::processEvents() ;
     delay() ;
     render(i, ORANGE) ;
     render(j, ORANGE) ;

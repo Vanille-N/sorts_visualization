@@ -43,8 +43,6 @@ public:
     void solved (int) ;
     void tmpsolve (int) ;
     int getSize () ;
-    //void decr (int) ;
-    //void incr (int) ;
     void setBinHeapLv (int) ;
     void setTerHeapLv (int) ;
     void flip_ifn_cmp (int, int) ;
