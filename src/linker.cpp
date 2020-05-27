@@ -1,6 +1,6 @@
 #include "linker.h"
 #include "window.h"
-#include <stdlib.h>
+// For some obscure reason, the project will fail to compile if I move the include of window.h to linker.h
 
 Linker::Linker (Window * parent, item * array, int size, QGraphicsScene * scene, int delay, bool rec) {
     m_mem = array ;
@@ -28,7 +28,6 @@ Linker::Linker (Window * parent, item * array, int size, QGraphicsScene * scene,
             left = intleft + 1 ;
         }
         int up = 540 - height ;
-        // m_rects.push_back(m_scene->addRect(left, up, (m_size<512)?m_width:.5, height, pen, brush)) ;
         if (m_size <= 256) {
             QPen pen = QPen (Qt::black) ;
             QBrush brush = QBrush (ORANGE) ;
@@ -39,7 +38,6 @@ Linker::Linker (Window * parent, item * array, int size, QGraphicsScene * scene,
             m_lines.push_back(m_scene->addLine(left, up, left, 540, pen)) ;
             m_lines[i]->setToolTip(Tip(m_mem[i])) ;
         }
-//        printf("%d\n", i) ;
     }
 }
 

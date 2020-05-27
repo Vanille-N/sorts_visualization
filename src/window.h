@@ -15,6 +15,9 @@
 #include "sorter.h"
 #include "xslider.h"
 #include "item.h"
+#include <chrono>
+#include <ctime>
+#include <algorithm>
 
 class Window : public QWidget {
     Q_OBJECT
