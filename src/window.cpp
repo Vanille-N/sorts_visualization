@@ -294,10 +294,11 @@ void Window::abort () {
 void Window::build () {
     recording = false ;
     disconnect(m_abort, SIGNAL(clicked()), this, SLOT(build())) ;
-    std::system("echo building") ;
-    std::system("ffmpeg -pattern_type sequence -framerate 25 -i .%d.png -vcodec libx264 res.avi") ;
-    std::system("ffmpeg -i res.avi -vf \"fps=10,scale=320:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse\" -loop 0 mov.gif") ;
     for (int i = 0; i < 20; i++) m_link->frame() ;
+    std::cout << "building..." << std::endl ;
+    std::system("ffmpeg -loglevel quiet -pattern_type sequence -framerate 20 -i .%d.png -vcodec libx264 .tmp.avi") ;
+    std::cout << "converting to gif..." << std::endl ;
+    std::system("ffmpeg -loglevel quiet -i .tmp.avi -vf \"fps=20,scale=320:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse\" -loop 0 .tmp.gif") ;
     std::system("rm .*.png") ;
     done() ;
 }
