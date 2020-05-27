@@ -12,6 +12,7 @@
 #include <sstream>
 #include <iostream>
 #include "item.h"
+#include <stdlib.h>
 
 #define WHITE QColor(255, 255, 255)
 #define GREEN QColor(55, 200, 0)

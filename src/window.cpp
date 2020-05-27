@@ -156,6 +156,10 @@ void Window::run () {
     m_link = new Linker (this, m_array, size, m_scene, delay, recording) ;
     m_sort = new Sorter (m_link) ;
 
+    if (recording) {
+        for (int i = 0; i < 20; i++) m_link->frame() ;
+    }
+
     switch (m_chooseAlgo->currentIndex()) {
         case 0: // Bubblesort
             switch (m_chooseOption->currentIndex()) {
@@ -293,6 +297,7 @@ void Window::build () {
     std::system("echo building") ;
     std::system("ffmpeg -pattern_type sequence -framerate 25 -i .%d.png -vcodec libx264 res.avi") ;
     std::system("ffmpeg -i res.avi -vf \"fps=10,scale=320:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse\" -loop 0 mov.gif") ;
+    for (int i = 0; i < 20; i++) m_link->frame() ;
     std::system("rm .*.png") ;
     done() ;
 }
