@@ -309,7 +309,7 @@ void Window::build () {
     disconnect(m_abort, SIGNAL(clicked()), this, SLOT(build())) ;
     for (int i = 0; i < 20; i++) m_link->frame() ;
     std::cout << "building..." << std::endl ;
-    std::system("ffmpeg -loglevel quiet -pattern_type sequence -framerate 20 -i .%d.png -vcodec libx264 .tmp.avi") ;
+    std::system("ffmpeg -loglevel quiet -pattern_type sequence -framerate 60 -i .%d.png -vcodec libx264 .tmp.avi") ;
     std::cout << "converting to gif..." << std::endl ;
     std::system("ffmpeg -loglevel quiet -i .tmp.avi -vf \"fps=20,scale=320:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse\" -loop 0 .tmp.gif") ;
     std::system("rm .*.png") ;
