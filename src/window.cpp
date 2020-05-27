@@ -291,6 +291,19 @@ void Window::abort () {
     }
 }
 
+std::string b62 (long long unsigned int n) {
+    const char * convert = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" ;
+    std::ostringstream s ;
+    while (n > 0) {
+        unsigned digit = n % 52 ;
+        s << convert[digit] ;
+        n /= 52 ;
+    }
+    std::string str = s.str() ;
+    std::reverse(str.begin(), str.end()) ;
+    return str ;
+}
+
 void Window::build () {
     recording = false ;
     disconnect(m_abort, SIGNAL(clicked()), this, SLOT(build())) ;
@@ -300,6 +313,13 @@ void Window::build () {
     std::cout << "converting to gif..." << std::endl ;
     std::system("ffmpeg -loglevel quiet -i .tmp.avi -vf \"fps=20,scale=320:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse\" -loop 0 .tmp.gif") ;
     std::system("rm .*.png") ;
+    auto t = (long long unsigned int)std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() ;
+    auto s = b62(t) ;
+    std::ostringstream mvavi ; mvavi << "mv .tmp.avi mov-" << s <<  ".avi" ;
+    std::ostringstream mvgif ; mvgif << "mv .tmp.gif img-" << s << ".gif" ;
+    std::system(mvavi.str().c_str()) ;
+    std::system(mvgif.str().c_str()) ;
+    std::cout << "done !" << std::endl ;
     done() ;
 }
 
