@@ -43,8 +43,8 @@ int main(int argc, char* argv[]) {
 
     delete mainWindow ;
     delete scene ;
-    delete view ;
-    delete frame ;
+    //delete view ;
+    //delete frame ;
 
     return res ;
 }
