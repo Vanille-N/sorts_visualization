@@ -5,6 +5,7 @@ Window::Window (QWidget * parent, QGraphicsScene * scene, QGraphicsView * view) 
     m_parent = parent ;
     m_scene = scene ;
     m_view = view ;
+    recording = false ;
     show() ;
     setFixedSize(160, 500) ;
     move(550, 10) ;
@@ -61,11 +62,11 @@ Window::Window (QWidget * parent, QGraphicsScene * scene, QGraphicsView * view) 
     m_nbWrite->setDigitCount(10) ;
     m_start = new QPushButton ("Start", this) ;
     m_exit = new QPushButton ("Exit", this) ;
-    m_abort = new QPushButton ("", this) ;
-    m_abort->setEnabled(false) ;
-    m_playpause = new QPushButton ("", this) ;
+    m_abort = new QPushButton ("Record", this) ;
+    m_playpause = new QPushButton ("--", this) ;
     m_playpause->setEnabled(false) ;
     m_optmgr->connect(m_exit, SIGNAL(clicked()), this, SLOT(kill())) ;
+    m_optmgr->connect(m_abort, SIGNAL(clicked()), this, SLOT(record())) ;
     m_chooseMenu = new QVBoxLayout () ;
     m_chooseMenu->addWidget(new QLabel ("Algorithm:", this)) ;
     m_chooseMenu->addWidget(m_chooseAlgo) ;
@@ -107,12 +108,19 @@ void Window::kill () {
     m_parent->close() ;
 }
 
+void Window::record () {
+    recording = true ;
+    std::system("mkdir .recording") ;
+    run() ;
+}
+
 void Window::run () {
-    m_start->setText("") ;
+    m_start->setText("--") ;
     disconnect(m_start, SIGNAL(clicked()), this, SLOT(run())) ;
     connect(m_playpause, SIGNAL(clicked()), this, SLOT(pause())) ;
     m_playpause->setText("Pause") ;
     m_playpause->setEnabled(true) ;
+    disconnect(m_abort, SIGNAL(clicked()), this, SLOT(record())) ;
     connect(m_abort, SIGNAL(clicked()), this, SLOT(abort())) ;
     m_abort->setText("Abort") ;
     m_abort->setEnabled(true) ;
@@ -226,11 +234,17 @@ void Window::run () {
 
     m_start->setText("Clear") ;
     m_start->setEnabled(true) ;
-    m_playpause->setText("") ;
+    m_playpause->setText("--") ;
     m_playpause->setEnabled(false) ;
-    m_abort->setText("") ;
-    m_abort->setEnabled(false) ;
-    m_optmgr->connect(m_start, SIGNAL(clicked()), this, SLOT(done())) ;
+    disconnect(m_abort, SIGNAL(clicked()), this, SLOT(abort())) ;
+    if (recording) {
+        m_abort->setText("Build") ;
+        connect(m_abort, SIGNAL(clicked()), this, SLOT(build())) ;
+    } else {
+        m_abort->setText("--");
+        m_abort->setEnabled(false);
+    }
+    connect(m_start, SIGNAL(clicked()), this, SLOT(done())) ;
 }
 
 void Window::done () {
@@ -248,12 +262,35 @@ void Window::done () {
     m_nbWrite->display(0) ;
     m_start->setText("Start") ;
     m_start->setEnabled(true) ;
-    m_optmgr->disconnect(m_start, SIGNAL(clicked()), this, SLOT(done())) ;
-    m_optmgr->connect(m_start, SIGNAL(clicked()), this, SLOT(run())) ;
+    m_abort->setText("Record") ;
+    m_abort->setEnabled(true) ;
+    if (recording) {
+        disconnect(m_abort, SIGNAL(clicked()), this, SLOT(build())) ;
+        std::system("rm -r .recording") ;
+        recording = false ;
+    }
+    disconnect(m_start, SIGNAL(clicked()), this, SLOT(done())) ;
+    connect(m_start, SIGNAL(clicked()), this, SLOT(run())) ;
+    connect(m_abort, SIGNAL(clicked()), this, SLOT(record())) ;
+
 }
 
 void Window::abort () {
     m_sort->stop() ;
+    play() ;
+    disconnect(m_abort, SIGNAL(clicked()), this, SLOT(abort())) ;
+    if (recording) {
+        recording = false ;
+        std::system("rm -r .recording") ;
+    }
+}
+
+void Window::build () {
+    recording = false ;
+    disconnect(m_abort, SIGNAL(clicked()), this, SLOT(build())) ;
+    std::system("echo build") ;
+    std::system("rm -r .recording") ;
+    done() ;
 }
 
 void Window::pause () {

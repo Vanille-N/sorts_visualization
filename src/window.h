@@ -30,7 +30,9 @@ public slots:
     void kill () ;
     void abort () ;
     void play () ;
+    void record () ;
     void pause () ;
+    void build () ;
 private:
     QWidget * m_parent ;
     QGraphicsScene * m_scene ;
@@ -54,4 +56,5 @@ private:
     Sorter * m_sort ;
     item * m_array ;
     bool playing ;
+    bool recording ;
 };
