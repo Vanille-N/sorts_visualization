@@ -27,8 +27,6 @@ class Linker {
 public:
     Linker (Window *, item *, int, QGraphicsScene *, int, bool) ;
     ~Linker () ;
-    //int read (int) ;
-    //void write (int) ;
     void done (int) ;
     void delay () ;
     item get (int) ;
@@ -58,8 +56,6 @@ private:
     item ** m_array ;
     int m_size ;
     Window * m_parent ;
-    //int m_writingIdx ;
-    //int m_readingIdx ;
     int m_width ;
     int m_delay ;
     bool recording ;
