@@ -975,13 +975,13 @@ void Sorter::Heapsort_min () {
         Reheapify_min(0, i) ;
         BREAKPOINT ;
     }
-    for (int i = 0; i <= m_size/2; i++) {
+    for (int i = 0; i < m_size/2; i++) {
         BREAKPOINT ;
         m_link->flip(i, m_size-1-i) ;
         m_link->solved(i) ;
         m_link->solved(m_size-1-i) ;
     }
-    m_link->solved(m_size/2+1) ;
+    //m_link->solved(m_size/2+1) ;
 }
 
 void Sorter::Heapsort_tern () {
