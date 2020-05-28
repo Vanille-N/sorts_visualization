@@ -998,6 +998,7 @@ void Sorter::Heapsort_tern () {
     }
 }
 
+// The static variables used here are never used outside of the four functions that follow.
 
 #define UP(IA,IB) temp = IA; IA += IB + 1; IB = temp
 #define DOWN(IA,IB) temp = IB; IB = IA - IB - 1; IA = temp
