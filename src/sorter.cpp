@@ -943,9 +943,9 @@ void Sorter::Heapsort_max () {
     for (int i = m_size-1; i >= 0; i--) {
         BREAKPOINT ;
         m_link->flip(i, 0) ;
+        m_link->solved(i) ;
         Reheapify_max(0, i) ;
         BREAKPOINT ;
-        m_link->solved(i) ;
     }
 }
 
@@ -957,9 +957,9 @@ void Sorter::Heapsort_sift () {
     for (int i = m_size-1; i >= 0; i--) {
         BREAKPOINT ;
         m_link->flip(i, 0) ;
+        m_link->solved(i) ;
         Reheapify_max(0, i) ;
         BREAKPOINT ;
-        m_link->solved(i) ;
     }
 }
 
@@ -971,9 +971,9 @@ void Sorter::Heapsort_min () {
     for (int i = m_size-1; i >= 0; i--) {
         BREAKPOINT ;
         m_link->flip(i, 0) ;
+        m_link->tmpsolve(i) ;
         Reheapify_min(0, i) ;
         BREAKPOINT ;
-        m_link->tmpsolve(i) ;
     }
     for (int i = 0; i <= m_size/2; i++) {
         BREAKPOINT ;
@@ -992,9 +992,9 @@ void Sorter::Heapsort_tern () {
     for (int i = m_size-1; i >= 0; i--) {
         BREAKPOINT ;
         m_link->flip(i, 0) ;
+        m_link->solved(i) ;
         Reheapify_tern(0, i) ;
         BREAKPOINT ;
-        m_link->solved(i) ;
     }
 }
 
